@@ -133,7 +133,6 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 				Message msg = new Message();
 				msg.what = SHOWSEARCHRESULT;
 				msg.obj = wsResult.getResult();
-
 				handler.sendMessage( msg );
 			}
 		} );
