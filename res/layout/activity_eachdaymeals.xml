@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#1C86EE" >
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp" />
+
+        <Button
+            android:id="@+id/btn_modify"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp" >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/breakfast" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/lunch" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/supper" />
+
+        <ImageView
+            android:id="@+id/iv_flag"
+            android:layout_width="100dp"
+            android:layout_height="5dp"
+            android:layout_alignParentBottom="true"
+            android:scaleType="matrix"
+            android:src="@drawable/viewflag" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:background="#1C86EE" />
+        <!--
+             <Button
+            android:id="@+id/btn_left"
+            android:layout_width="50dp"
+            android:layout_height="18dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="LoadingFailed"
+            android:textColor="#CD3333"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/btn_right"
+            android:layout_width="50dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp" />
+        -->
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/lv_eachdaymeals"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="30dp" >
+        </ListView>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_eachdaymeals"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="30dp" >
+        </android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:alpha="0.6"
+            android:background="#C5C1AA"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/showenergy"
+                android:textColor="#EE4000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/tv_eachdayenergy"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true" >
+
+            <View
+                android:id="@+id/v"
+                android:layout_width="180dp"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/btn_last"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/lastday" />
+
+            <Button
+                android:id="@+id/btn_list"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list" />
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/nextday" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="30dp"
+            android:keepScreenOn="true" >
+
+            <ImageButton
+                android:id="@+id/ib_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.3"
+                android:background="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="2012-09-09"
+                android:textColor="#080808"
+                android:textSize="18dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

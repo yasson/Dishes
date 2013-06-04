@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#CCCCCC" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1000dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/iv_dishPic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp" >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:background="#000000" />
+
+                <Button
+                    android:id="@+id/btn_ddback"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_dishName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
+
+                <ImageButton
+                    android:id="@+id/ib_favor"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/healthdescribtion"
+            android:textColor="#00CD00"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_hdesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#4F4F4F"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_ingredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ingredient"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/ll_ingredient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/tv_accessory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/accessory"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/ll_accessory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/tv_seasoning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seasoning"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/ll_seasoning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/howtocook"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_steps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:orientation="vertical">
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
