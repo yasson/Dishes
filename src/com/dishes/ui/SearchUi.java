@@ -104,7 +104,7 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 			sreachDishMap.put( "process", null );
 			sreachDishMap.put( "taste", null );
 			sreachDishMap.put( "caixi", null );
-			sreachDishMap.put( "searchType", "0" );
+			sreachDishMap.put( "searchType",null);
 			sreachDishMap.put( "wsUser", WebServiceConstant.wsUser );
 			getSreachDishInfo( sreachDishMap );
 
@@ -141,6 +141,7 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 
 
 	@Override
+	
 	public void onScroll( AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount ) {
 
 		lastItem = firstVisibleItem + visibleItemCount;
