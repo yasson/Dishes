@@ -5,6 +5,7 @@ package com.dishes.common;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.dishes.ui.R;
@@ -35,4 +36,11 @@ public class CommonMethod {
 		dm = context.getResources().getDisplayMetrics();
 		return dm.heightPixels;
 	}
+	
+	public static int dipTopx(Context context, float dp) {
+		final float scale = context.getResources().getDisplayMetrics().density;
+		Log.d("XXXXXX", "density=" + scale);
+		return (int) ((dp - 0.5f) * scale);
+	}
+	
 }

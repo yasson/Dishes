@@ -83,7 +83,7 @@ public class HomeUi extends Activity implements OnClickListener {
 					tv_desc.setText( dishInfo.getDishDesc() );
 					ll_everyday.addView( view );
 					ImageLoader imageLoader = new ImageLoader();
-					imageLoader.loadImage( dishInfo.getDishPic(), Constant.HomeConstant.IMAGE_LENGTH, new ImageCallback() {
+					imageLoader.loadImage( imageView, dishInfo.getDishPic(), dishInfo.getDishName(),Constant.HomeConstant.IMAGE_LENGTH, new ImageCallback() {
 
 						@Override
 						public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {

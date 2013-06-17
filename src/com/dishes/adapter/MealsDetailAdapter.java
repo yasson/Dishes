@@ -103,7 +103,7 @@ public class MealsDetailAdapter extends BaseAdapter {
 		}
 		viewHolder.textView1.setText( usedInfos.get( position ).getDishName() );
 		ImageLoader imageLoader = new ImageLoader();
-		imageLoader.loadImage( usedInfos.get( position ).getDishPic(), 400, new ImageCallback() {
+		imageLoader.loadImage( null, usedInfos.get( position ).getDishPic(), usedInfos.get( position ).getDishName(),400, new ImageCallback() {
 
 			@Override
 			public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {

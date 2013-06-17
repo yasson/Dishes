@@ -150,13 +150,12 @@ public class HowToCook extends Activity implements OnClickListener {
 					viewHolder.textView1.setText( stepsInfos.get( j ).getSn() + "." );
 					viewHolder.textView2.setText( stepsInfos.get( j ).getNote() );
 					viewHolder.imageView.setImageResource( R.drawable.ic_launcher );
-					ImageLoader imageLoader = new ImageLoader();
 					String imageUrl = stepsInfos.get( j ).getSteppic();
 					ll_steps.addView( view );
 
 				}
 
-				new ImageLoader().loadImage( menuInfo.getPic(), 400, new ImageCallback() {
+				new ImageLoader().loadImage( iv_dishPic, menuInfo.getPic(),menuInfo.getMenuName(), 400, new ImageCallback() {
 
 					@Override
 					public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {

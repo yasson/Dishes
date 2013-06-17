@@ -7,23 +7,21 @@ import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dishes.common.ViewHolder;
 import com.dishes.model.DishInfo;
-import com.dishes.ui.HowToCook;
 import com.dishes.ui.R;
+import com.dishes.ui.SearchUi;
 import com.dishes.util.ImageCallback;
 import com.dishes.util.ImageLoader;
 
@@ -36,13 +34,17 @@ public class SearchAdapter extends BaseAdapter {
 	private int count = 10;
 	private Context context;
 	private List<SoapObject> list;
+	private ListView listView;
+	SearchUi searchUi = new SearchUi();
 
 
 	/**
 	 * @param applicationContext
 	 * @param list
 	 */
-	public SearchAdapter( Context applicationContext, List<SoapObject> list ) {
+	public SearchAdapter( Context applicationContext, List<SoapObject> list, ListView listView ) {
+
+		this.listView = listView;
 
 		this.context = applicationContext;
 		this.list = list;
@@ -63,7 +65,8 @@ public class SearchAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 
-		return count <= list.size() ? count : list.size();
+		 return count <= list.size() ? count : list.size();
+//		return list.size();
 	}
 
 
@@ -94,35 +97,43 @@ public class SearchAdapter extends BaseAdapter {
 	public View getView( int arg0, View convertView, ViewGroup parent ) {
 
 		final ViewHolder viewHolder;
-		if( convertView == null ) {
-			convertView = ( ViewGroup )LayoutInflater.from( context ).inflate( R.layout.adapter_search, null );
-			viewHolder = new ViewHolder();
-			viewHolder.imageView = ( ImageView )convertView.findViewById( R.id.iv_searchresult );
-			viewHolder.textView1 = ( TextView )convertView.findViewById( R.id.tv_searchresultname );
-			viewHolder.textView2 = ( TextView )convertView.findViewById( R.id.tv_searchresuldesc );
-			viewHolder.progressBar = ( ProgressBar )convertView.findViewById( R.id.pr_searchresult );
-			convertView.setTag( viewHolder );
+		// 使用viewholder出现图片错位赋值问题，暂未解决
+		 if( convertView == null ) {
 
-		} else {
-			viewHolder = ( ViewHolder )convertView.getTag();
-		}
+		convertView = ( ViewGroup )LayoutInflater.from( context ).inflate( R.layout.adapter_search, null );
+		viewHolder = new ViewHolder();
+		viewHolder.imageView = ( ImageView )convertView.findViewById( R.id.iv_searchresult );
+		viewHolder.textView1 = ( TextView )convertView.findViewById( R.id.tv_searchresultname );
+		viewHolder.textView2 = ( TextView )convertView.findViewById( R.id.tv_searchresuldesc );
+		viewHolder.progressBar = ( ProgressBar )convertView.findViewById( R.id.pr_searchresult );
+		 convertView.setTag( viewHolder );
+
+		 } else {
+		 viewHolder = ( ViewHolder )convertView.getTag();
+		 }
 		final DishInfo dishInfo = new DishInfo( list.get( arg0 ) );
 		viewHolder.textView1.setText( dishInfo.getDishName() );
-		ImageLoader imageLoader = new ImageLoader();
-		imageLoader.loadImage( dishInfo.getDishPic(), 100, new ImageCallback() {
+		System.out.println( "............................" + dishInfo.getDishName() );
+//		viewHolder.imageView.setTag( dishInfo.getDishPic() );
+		new ImageLoader().loadImage( viewHolder.imageView, dishInfo.getDishPic(), dishInfo.getDishName(), 100, new ImageCallback() {
 
 			@Override
 			public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {
 
+//					ImageView imageView = ( ImageView )listView.findViewWithTag( dishInfo.getDishPic() );
+//					if( imageView != null && dishInfo.getDishPic().equals( imageView.getTag() ) ) {
+//						imageView.setImageBitmap( bitmap );
+//					} else if( imageView != null ) {
+//						imageView.setVisibility( View.VISIBLE );
+//					}
+				viewHolder.imageView.setVisibility( View.VISIBLE );
 				viewHolder.imageView.setImageBitmap( bitmap );
-
 			}
 
 
 			@Override
 			public void imageLoadOver() {
 
-				viewHolder.imageView.setVisibility( View.VISIBLE );
 				viewHolder.progressBar.setVisibility( View.GONE );
 			}
 
@@ -137,7 +148,6 @@ public class SearchAdapter extends BaseAdapter {
 
 			@Override
 			public void imageLoadBefore() {
-
 				viewHolder.imageView.setVisibility( View.INVISIBLE );
 				viewHolder.progressBar.setVisibility( View.VISIBLE );
 

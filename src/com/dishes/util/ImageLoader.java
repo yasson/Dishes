@@ -6,8 +6,11 @@ package com.dishes.util;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.dishes.ui.R;
 
 import android.R.integer;
 import android.graphics.Bitmap;
@@ -16,6 +19,7 @@ import android.graphics.BitmapFactory.Options;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.ImageView;
 
 /**
  * 图片加载类
@@ -24,18 +28,22 @@ import android.os.Message;
  */
 public class ImageLoader {
 
+	boolean RUN = true;
 	private ImageCache imageCache;
 	private ThreadTool threadTool;
+	private ArrayList<ImageLoadTask> taskList;
+	private int i = 0;
 
 
 	public ImageLoader() {
 
 		imageCache = ImageCache.getInstance();
 		threadTool = ThreadTool.getInstance();
+		taskList = ThreadTool.getImageLoadTasks();
 	}
 
 
-	public void loadImage( final String imageUrl, final int length, final ImageCallback imageCallback ) {
+	public void loadImage( final ImageView imageView, final String imageUrl, String name, final int length, final ImageCallback imageCallback ) {
 
 		imageCallback.imageLoadBefore();
 		final Handler mHandler = new Handler() {
@@ -55,25 +63,11 @@ public class ImageLoader {
 				}
 			}
 		};
-		threadTool.addTask( new Runnable() {
-
-			@Override
-			public void run() {
-
-				Map<String, Object> map;
-				if( imageCache.getBitmapMap( imageUrl ) != null ) {
-					map = imageCache.getBitmapMap( imageUrl );
-				} else {
-					map = loadImageFromNet( imageUrl, length );
-
-					imageCache.addSrCache( imageUrl, map );
-				}
-
-				Message msg = new Message();
-				msg.obj = map;
-				mHandler.sendMessage( msg );
-			}
-		} );
+		ImageLoadTask imageLoadTask = new ImageLoadTask( imageUrl, length, mHandler );
+		imageLoadTask.setId( imageUrl );
+		imageLoadTask.setName( name );
+		taskList.add( imageLoadTask );
+		threadTool.addTask( imageLoadTask );
 
 	}
 
@@ -118,4 +112,94 @@ public class ImageLoader {
 		return null;
 
 	}
+
+
+	public class ImageLoadTask implements Runnable {
+
+		String imageUrl;
+		int length;
+		Handler mHandler;
+		String id;
+		String name;
+
+
+		public ImageLoadTask( String imageUrl, int length, Handler mHandler ) {
+
+			this.imageUrl = imageUrl;
+			this.length = length;
+			this.mHandler = mHandler;
+
+		}
+
+
+		/**
+		 * @param name
+		 *            the name to set
+		 */
+		public void setName( String name ) {
+
+			this.name = name;
+		}
+
+
+		/**
+		 * @return the name
+		 */
+		public String getName() {
+
+			return name;
+		}
+
+
+		/**
+		 * @param id
+		 *            the id to set
+		 */
+		public void setId( String id ) {
+
+			this.id = id;
+		}
+
+
+		/**
+		 * @return the id
+		 */
+		public String getId() {
+
+			return id;
+		}
+
+
+		public void stopTask() {
+
+			RUN = false;
+
+		}
+
+
+		@Override
+		public void run() {
+
+			Map<String, Object> map;
+			if( RUN ) {
+				if( imageCache.getBitmapMap( imageUrl ) != null ) {
+					map = imageCache.getBitmapMap( imageUrl );
+					System.out.println(imageCache.getA()+"        "+map);
+
+				} else {
+					map = loadImageFromNet( imageUrl, length );
+					imageCache.addSrCache( imageUrl, map );
+				}
+				if( RUN ) {
+					Message msg = new Message();
+					msg.obj = map;
+					mHandler.sendMessage( msg );
+				}
+
+				return;
+
+			}
+		}
+	}
+
 }

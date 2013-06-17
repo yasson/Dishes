@@ -24,5 +24,6 @@
     <string name="howtocook">做法</string>
     <string name="inputsearch">输入搜索内容···</string>
     <string name="defaultdesc">色香味美，口感宜人</string>
+    <string name="loadingmore">加载更多</string>
 
 </resources>
