@@ -78,7 +78,6 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 	private ScrollView sv_search;
 	private boolean REMOVE = true;
 	private ViewHolder viewHolder;
-	private View view2;
 	private List<SoapObject> lists;
 	private Handler handler = new Handler() {
 
@@ -115,7 +114,6 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 	 */
 	private void initView() {
 
-		view2 = LayoutInflater.from( getApplicationContext() ).inflate( R.layout.tool_refresh, null );
 		viewHolder = new ViewHolder();
 		btn_caixi = ( Button )findViewById( R.id.btn_caixi );
 		btn_caixi.setOnClickListener( this );
@@ -127,8 +125,8 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 		btn_searching.setOnClickListener( this );
 		et_search = ( EditText )findViewById( R.id.et_search );
 		lv_searchresult = ( ListView )findViewById( R.id.lv_searchresult );
-		 view=LayoutInflater.from( getApplicationContext() ).inflate( R.layout.test, null );
-		lv_searchresult.addFooterView(  view);
+		view = LayoutInflater.from( getApplicationContext() ).inflate( R.layout.tool_refreshlistview, null );
+		lv_searchresult.addFooterView( view );
 		lv_searchresult.setOnScrollListener( this );
 		lv_searchresult.setOnItemClickListener( new ListViewItemClickL() );
 
@@ -273,7 +271,7 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 			List<String> list2 = new ArrayList<String>();
 			for( int i = 0; i < list.size(); i++ ) {
 				REMOVE = true;
-				for( int j = firstVisibleItem; j < lastItem-1; j++ ) {
+				for( int j = firstVisibleItem; j < lastItem - 1; j++ ) {
 					DishInfo dishInfo = new DishInfo( lists.get( j ) );
 					if( list.get( i ).getId().equals( dishInfo.getDishPic() ) ) {
 						// System.out.println( "faxianle" + list.get( i
@@ -302,10 +300,10 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 			if( lastItem == adapter.getCount() + 1 ) {
 
 				adapter.setCount( adapter.getCount() + 10 );
-				if( lastItem != adapter.getCount()+1 ) {
-					
+				if( lastItem != adapter.getCount() + 1 ) {
+
 					adapter.notifyDataSetChanged();
-				}else {
+				} else {
 					lv_searchresult.removeFooterView( this.view );
 				}
 
