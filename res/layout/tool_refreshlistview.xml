@@ -18,7 +18,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/loadingmore"
-        android:textColor="#242424"
-        android:textSize="22sp" />
+        android:textColor="#636363"
+        android:textSize="20sp" />
 
 </RelativeLayout>

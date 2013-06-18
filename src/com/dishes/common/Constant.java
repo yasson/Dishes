@@ -38,22 +38,45 @@ public class Constant {
 	 * 
 	 */
 	public static class SearchConstant {
-//		listCuisines.add("鲁菜");// 42
-//		listCuisines.add("川菜");// 41
-//		listCuisines.add("粤菜");// 43
-//		listCuisines.add("苏菜");// 47
-//		listCuisines.add("闽菜");// 45
-//		listCuisines.add("浙菜");// 46
-//		listCuisines.add("湘菜");// 44
-//		listCuisines.add("徽菜");// 48
-		public static final String[] TASTE_LIST = {};
-		public static final String[] CAIXI_LIST ={"全部","鲁菜","粤菜","苏菜","闽菜","浙菜","湘菜","徽菜"};
-		public static final String[] PROCESS_LIST = {};
+
+		// listCuisines.add("鲁菜");// 42
+		// listCuisines.add("川菜");// 41
+		// listCuisines.add("粤菜");// 43
+		// listCuisines.add("苏菜");// 47
+		// listCuisines.add("闽菜");// 45
+		// listCuisines.add("浙菜");// 46
+		// listCuisines.add("湘菜");// 44
+		// listCuisines.add("徽菜");// 48
+		// listCuisines.add("全部");
+		// listCuisines.add("辣");// 1
+		// listCuisines.add("酸");// 2
+		// listCuisines.add("咸");// 3
+		// listCuisines.add("苦");// 15
+		// listCuisines.add("甜");// 5
+		// listCuisines.add("蒜香");// 9
+		// listCuisines.add("姜香");// 17
+		// listCuisines.add("葱香");// 12
+		// listCuisines.add("全部");
+		// listCuisines.add("蒸");// 1
+		// listCuisines.add("煮");// 2
+		// listCuisines.add("炖");// 3
+		// listCuisines.add("炒");// 10
+		// listCuisines.add("煎");// 15
+		// listCuisines.add("烧");// 6
+		// listCuisines.add("炸");// 23
+		// listCuisines.add("煲");// 8
+		public static final String[] TASTE_LIST = { "口味", "辣", "酸", "咸", "苦", "甜", "蒜香", "姜香", "葱香" };
+		public static final String[] TASTE_LIST_ID = { "", "1", "2", "3", "15", "5", "9", "17", "12" };
+		public static final String[] CAIXI_LIST = { "菜系", "鲁菜", "粤菜", "苏菜", "闽菜", "浙菜", "湘菜", "徽菜" };
+		public static final String[] CAIXI_LIST_ID = { "", "42", "41","47", "43", "45", "46", "44", "48" };
+		public static final String[] PROCESS_LIST = { "工艺", "蒸", "煮", "炖", "炒", "煎", "烧", "炸", "煲" };
+		public static final String[] PROCESS_LIST_ID = { "", "1", "2", "3", "10", "15", "6", "23", "8" };
 
 	}
 
 	public static class UtilConstant {
 
 		public static int THREADCOUNT = 5;
+		public static int LISTVIEW_MINCOUNT=10;
 	}
 }

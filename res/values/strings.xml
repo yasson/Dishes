@@ -24,6 +24,10 @@
     <string name="howtocook">做法</string>
     <string name="inputsearch">输入搜索内容···</string>
     <string name="defaultdesc">色香味美，口感宜人</string>
-    <string name="loadingmore">加载更多</string>
+    <string name="loadingmore">加载中</string>
+    <string name="taste">口味</string>
+    <string name="caixi">菜系</string>
+    <string name="process">工艺</string>
+      <string name="searchInfo">搜索内容不能为空</string>
 
 </resources>

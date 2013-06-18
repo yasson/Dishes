@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.dishes.common.Constant;
 import com.dishes.common.ViewHolder;
 import com.dishes.model.DishInfo;
 import com.dishes.ui.R;
@@ -31,10 +32,9 @@ import com.dishes.util.ImageLoader;
  */
 public class SearchAdapter extends BaseAdapter {
 
-	private int count = 10;
+	private int count = Constant.UtilConstant.LISTVIEW_MINCOUNT;
 	private Context context;
 	private List<SoapObject> list;
-	private ListView listView;
 	SearchUi searchUi = new SearchUi();
 
 
@@ -43,8 +43,6 @@ public class SearchAdapter extends BaseAdapter {
 	 * @param list
 	 */
 	public SearchAdapter( Context applicationContext, List<SoapObject> list, ListView listView ) {
-
-		this.listView = listView;
 
 		this.context = applicationContext;
 		this.list = list;
@@ -65,8 +63,8 @@ public class SearchAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 
-		 return count <= list.size() ? count : list.size();
-//		return list.size();
+		return count <= list.size() ? count : list.size();
+		// return list.size();
 	}
 
 
@@ -98,34 +96,36 @@ public class SearchAdapter extends BaseAdapter {
 
 		final ViewHolder viewHolder;
 		// 使用viewholder出现图片错位赋值问题，暂未解决
-		 if( convertView == null ) {
+		if( convertView == null ) {
 
-		convertView = ( ViewGroup )LayoutInflater.from( context ).inflate( R.layout.adapter_search, null );
-		viewHolder = new ViewHolder();
-		viewHolder.imageView = ( ImageView )convertView.findViewById( R.id.iv_searchresult );
-		viewHolder.textView1 = ( TextView )convertView.findViewById( R.id.tv_searchresultname );
-		viewHolder.textView2 = ( TextView )convertView.findViewById( R.id.tv_searchresuldesc );
-		viewHolder.progressBar = ( ProgressBar )convertView.findViewById( R.id.pr_searchresult );
-		 convertView.setTag( viewHolder );
+			convertView = ( ViewGroup )LayoutInflater.from( context ).inflate( R.layout.adapter_search, null );
+			viewHolder = new ViewHolder();
+			viewHolder.imageView = ( ImageView )convertView.findViewById( R.id.iv_searchresult );
+			viewHolder.textView1 = ( TextView )convertView.findViewById( R.id.tv_searchresultname );
+			viewHolder.textView2 = ( TextView )convertView.findViewById( R.id.tv_searchresuldesc );
+			viewHolder.progressBar = ( ProgressBar )convertView.findViewById( R.id.pr_searchresult );
+			convertView.setTag( viewHolder );
 
-		 } else {
-		 viewHolder = ( ViewHolder )convertView.getTag();
-		 }
+		} else {
+			viewHolder = ( ViewHolder )convertView.getTag();
+		}
 		final DishInfo dishInfo = new DishInfo( list.get( arg0 ) );
 		viewHolder.textView1.setText( dishInfo.getDishName() );
 		System.out.println( "............................" + dishInfo.getDishName() );
-//		viewHolder.imageView.setTag( dishInfo.getDishPic() );
+		// viewHolder.imageView.setTag( dishInfo.getDishPic() );
 		new ImageLoader().loadImage( viewHolder.imageView, dishInfo.getDishPic(), dishInfo.getDishName(), 100, new ImageCallback() {
 
 			@Override
 			public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {
 
-//					ImageView imageView = ( ImageView )listView.findViewWithTag( dishInfo.getDishPic() );
-//					if( imageView != null && dishInfo.getDishPic().equals( imageView.getTag() ) ) {
-//						imageView.setImageBitmap( bitmap );
-//					} else if( imageView != null ) {
-//						imageView.setVisibility( View.VISIBLE );
-//					}
+				// ImageView imageView = ( ImageView )listView.findViewWithTag(
+				// dishInfo.getDishPic() );
+				// if( imageView != null && dishInfo.getDishPic().equals(
+				// imageView.getTag() ) ) {
+				// imageView.setImageBitmap( bitmap );
+				// } else if( imageView != null ) {
+				// imageView.setVisibility( View.VISIBLE );
+				// }
 				viewHolder.imageView.setVisibility( View.VISIBLE );
 				viewHolder.imageView.setImageBitmap( bitmap );
 			}
@@ -148,6 +148,7 @@ public class SearchAdapter extends BaseAdapter {
 
 			@Override
 			public void imageLoadBefore() {
+
 				viewHolder.imageView.setVisibility( View.INVISIBLE );
 				viewHolder.progressBar.setVisibility( View.VISIBLE );
 
