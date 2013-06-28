@@ -29,5 +29,6 @@
     <string name="caixi">菜系</string>
     <string name="process">工艺</string>
       <string name="searchInfo">搜索内容不能为空</string>
+            <string name="categorydishes">分类菜谱</string>
 
 </resources>

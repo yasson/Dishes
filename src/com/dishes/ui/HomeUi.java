@@ -14,22 +14,25 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
+import android.view.View.OnDragListener;
+import android.view.View.OnSystemUiVisibilityChangeListener;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnScrollListener;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dishes.adapter.HomeListViewAdapter;
 import com.dishes.common.Constant;
@@ -37,6 +40,7 @@ import com.dishes.model.DishInfo;
 import com.dishes.model.WSResult;
 import com.dishes.util.ImageCallback;
 import com.dishes.util.ImageLoader;
+import com.dishes.util.SlideHolder;
 import com.dishes.util.ThreadTool;
 import com.dishes.webservice.WebServiceAction;
 import com.dishes.webservice.WebServiceConstant;
@@ -45,7 +49,7 @@ import com.dishes.webservice.WebServiceConstant;
  * @author SenYang
  * 
  */
-public class HomeUi extends Activity implements OnClickListener {
+public class HomeUi extends Activity implements OnClickListener, OnItemClickListener, OnTouchListener {
 
 	private ListView lv_home;
 	private HomeListViewAdapter adapter;
@@ -83,7 +87,7 @@ public class HomeUi extends Activity implements OnClickListener {
 					tv_desc.setText( dishInfo.getDishDesc() );
 					ll_everyday.addView( view );
 					ImageLoader imageLoader = new ImageLoader();
-					imageLoader.loadImage( imageView, dishInfo.getDishPic(), dishInfo.getDishName(),Constant.HomeConstant.IMAGE_LENGTH, new ImageCallback() {
+					imageLoader.loadImage( imageView, dishInfo.getDishPic(), dishInfo.getDishName(), Constant.HomeConstant.IMAGE_LENGTH, new ImageCallback() {
 
 						@Override
 						public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {
@@ -122,6 +126,7 @@ public class HomeUi extends Activity implements OnClickListener {
 
 		};
 	};
+	private SlideHolder slideHolder;
 
 
 	/*
@@ -204,6 +209,9 @@ public class HomeUi extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		btn_menu = ( Button )findViewById( R.id.btn_menu );
 		btn_search = ( Button )findViewById( R.id.btn_search );
+		slideHolder = ( SlideHolder )findViewById( R.id.slideHolder );
+		hScrollView = ( HorizontalScrollView )findViewById( R.id.hs_everyday );
+		hScrollView.setOnTouchListener( this );
 		btn_search.setOnClickListener( this );
 		btn_menu.setOnClickListener( this );
 		ll_everyday = ( LinearLayout )findViewById( R.id.ll_everyday );
@@ -211,7 +219,7 @@ public class HomeUi extends Activity implements OnClickListener {
 		lv_home = ( ListView )findViewById( R.id.lv_home );
 		adapter = new HomeListViewAdapter( getApplicationContext() );
 		lv_home.setAdapter( adapter );
-		lv_home.setOnItemClickListener( new HomeListViewClick() );
+		lv_home.setOnItemClickListener( this );
 
 	}
 
@@ -228,12 +236,14 @@ public class HomeUi extends Activity implements OnClickListener {
 		switch( v.getId() ) {
 		case R.id.btn_menu:
 
+			slideHolder.toggle();
+
 			break;
 		case R.id.btn_search:
 			Intent intent = new Intent();
 			intent.setClass( getApplicationContext(), SearchUi.class );
 			startActivity( intent );
-			overridePendingTransition( android.R.anim.slide_in_left, android.R.anim.slide_out_right );
+			overridePendingTransition( R.anim.slide_top_in, R.anim.slide_out_donothing );
 			break;
 
 		default:
@@ -243,39 +253,69 @@ public class HomeUi extends Activity implements OnClickListener {
 	}
 
 
-	/**
-	 * @author SenYang
-	 * 
-	 */
-	public class HomeListViewClick implements OnItemClickListener {
+	@Override
+	public void onItemClick( AdapterView<?> arg0, View arg1, int arg2, long arg3 ) {
 
-		@Override
-		public void onItemClick( AdapterView<?> arg0, View arg1, int arg2, long arg3 ) {
+		Intent intent = new Intent();
+		switch( arg2 ) {
 
-			Intent intent = new Intent();
-			switch( arg2 ) {
+		case 0:
+			intent.setClass( getApplicationContext(), EachdayMealsUi.class );
+			startActivity( intent );
+			overridePendingTransition( R.anim.slide_right_in, R.anim.slide_left_out );
 
-			case 0:
-				intent.setClass( getApplicationContext(), EachdayMealsUi.class );
-				startActivity( intent );
-				overridePendingTransition( R.anim.slide_right_in, R.anim.slide_left_out );
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			intent.setClass( getApplicationContext(), CategoryDishesUi.class );
+			startActivity( intent );
+			overridePendingTransition( R.anim.slide_right_in, R.anim.slide_left_out );
+			break;
 
-				break;
-			case 1:
+		default:
+			break;
+		}
 
-				break;
-			case 2:
+	}
 
-				break;
-			case 3:
 
-				break;
+	@Override
+	public boolean onTouch( View v, MotionEvent event ) {
 
+		switch( v.getId() ) {
+		case R.id.hs_everyday:
+
+			switch( event.getAction() ) {
+
+			case MotionEvent.ACTION_DOWN:
+
+				slideHolder.setEnabled( false );
+				return super.onTouchEvent( event );
+
+			case MotionEvent.ACTION_MOVE:
+				if( v.getScrollX() != 0 ) {
+					slideHolder.setEnabled( false );
+				} else {
+					slideHolder.setEnabled( true );
+				}
+				return super.onTouchEvent( event );
+			case MotionEvent.ACTION_UP:
+				slideHolder.setEnabled( true );
+				return super.onTouchEvent( event );
 			default:
 				break;
 			}
 
-		}
+			break;
 
+		default:
+			break;
+		}
+		return super.onTouchEvent( event );
 	}
 }

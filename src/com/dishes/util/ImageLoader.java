@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.dishes.ui.R;
+import com.dishes.util.ImageLoader.ImageLoadTask;
 
 import android.R.integer;
 import android.graphics.Bitmap;
@@ -33,6 +34,7 @@ public class ImageLoader {
 	private ThreadTool threadTool;
 	private ArrayList<ImageLoadTask> taskList;
 	private int i = 0;
+	private ImageLoadTask imageLoadTask;
 
 
 	public ImageLoader() {
@@ -43,7 +45,7 @@ public class ImageLoader {
 	}
 
 
-	public void loadImage( final ImageView imageView, final String imageUrl, String name, final int length, final ImageCallback imageCallback ) {
+	public void loadImage( final ImageView imageView, final String imageUrl, final String name, final int length, final ImageCallback imageCallback ) {
 
 		imageCallback.imageLoadBefore();
 		final Handler mHandler = new Handler() {
@@ -63,7 +65,7 @@ public class ImageLoader {
 				}
 			}
 		};
-		ImageLoadTask imageLoadTask = new ImageLoadTask( imageUrl, length, mHandler );
+		imageLoadTask = new ImageLoadTask( imageUrl, length, mHandler );
 		imageLoadTask.setId( imageUrl );
 		imageLoadTask.setName( name );
 		taskList.add( imageLoadTask );
@@ -184,7 +186,6 @@ public class ImageLoader {
 			if( RUN ) {
 				if( imageCache.getBitmapMap( imageUrl ) != null ) {
 					map = imageCache.getBitmapMap( imageUrl );
-					System.out.println(imageCache.getA()+"        "+map);
 
 				} else {
 					map = loadImageFromNet( imageUrl, length );

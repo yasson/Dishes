@@ -111,7 +111,6 @@ public class SearchAdapter extends BaseAdapter {
 		}
 		final DishInfo dishInfo = new DishInfo( list.get( arg0 ) );
 		viewHolder.textView1.setText( dishInfo.getDishName() );
-		System.out.println( "............................" + dishInfo.getDishName() );
 		// viewHolder.imageView.setTag( dishInfo.getDishPic() );
 		new ImageLoader().loadImage( viewHolder.imageView, dishInfo.getDishPic(), dishInfo.getDishName(), 100, new ImageCallback() {
 

@@ -155,14 +155,11 @@ public class HowToCook extends Activity implements OnClickListener {
 
 				}
 
-				new ImageLoader().loadImage( iv_dishPic, menuInfo.getPic(),menuInfo.getMenuName(), 400, new ImageCallback() {
+				new ImageLoader().loadImage( iv_dishPic, menuInfo.getPic(), menuInfo.getMenuName(), 400, new ImageCallback() {
 
 					@Override
 					public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {
 
-						int screenHeight = CommonMethod.getWindowSizeH( getApplicationContext() );
-						int screenWidth = CommonMethod.getWindowSizeW( getApplicationContext() );
-						iv_dishPic.setLayoutParams( new RelativeLayout.LayoutParams( screenWidth, ( int )( screenHeight / 2.5 ) ) );
 						iv_dishPic.setImageBitmap( bitmap );
 
 					}
@@ -290,6 +287,8 @@ public class HowToCook extends Activity implements OnClickListener {
 	 */
 	private void initView() {
 
+		int screenHeight = CommonMethod.getWindowSizeH( getApplicationContext() );
+		int screenWidth = CommonMethod.getWindowSizeW( getApplicationContext() );
 		btn_ddback = ( Button )findViewById( R.id.btn_ddback );
 		btn_ddback.setOnClickListener( this );
 		ib_favor = ( ImageButton )findViewById( R.id.ib_favor );
@@ -303,7 +302,7 @@ public class HowToCook extends Activity implements OnClickListener {
 		ll_accessory = ( LinearLayout )findViewById( R.id.ll_accessory );
 		ll_seasoning = ( LinearLayout )findViewById( R.id.ll_seasoning );
 		ll_steps = ( LinearLayout )findViewById( R.id.ll_steps );
-
+		iv_dishPic.setLayoutParams( new RelativeLayout.LayoutParams( screenWidth, ( int )( screenHeight / 2.5 ) ) );
 	}
 
 

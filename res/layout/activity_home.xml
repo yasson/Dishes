@@ -1,52 +1,115 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<com.dishes.util.SlideHolder xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slideHolder"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    <HorizontalScrollView
-        android:id="@+id/hs_everyday"
-        android:layout_width="match_parent"
-        android:layout_height="300dp" >
+    <ScrollView
+        android:layout_width="200dp"
+        android:layout_height="fill_parent"
+        android:background="@drawable/backg" >
 
         <LinearLayout
-            android:id="@+id/ll_everyday"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
-        </LinearLayout>
-    </HorizontalScrollView>
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/lv_home"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="300dp" >
-    </ListView>
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_settings" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_settings" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_settings" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_settings" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_settings" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_settings" />
+        </LinearLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/menuback" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/btn_menu"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/menu" />
+        <HorizontalScrollView
+            android:id="@+id/hs_everyday"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" >
 
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/search" />
+            <LinearLayout
+                android:id="@+id/ll_everyday"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <ListView
+            android:id="@+id/lv_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="300dp" >
+        </ListView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/menuback" >
+
+            <Button
+                android:id="@+id/btn_menu"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/menu_more" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="38dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="60dp"
+                android:background="@drawable/separater" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="38dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="60dp"
+                android:background="@drawable/separater" />
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/search" />
+        </RelativeLayout>
     </RelativeLayout>
 
-</RelativeLayout>
+</com.dishes.util.SlideHolder>

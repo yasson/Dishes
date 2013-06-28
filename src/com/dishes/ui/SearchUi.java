@@ -18,10 +18,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
@@ -32,6 +35,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.dishes.adapter.SearchAdapter;
@@ -49,7 +53,7 @@ import com.dishes.webservice.WebServiceConstant;
  * @author SenYang
  * 
  */
-public class SearchUi extends Activity implements OnClickListener, OnScrollListener {
+public class SearchUi extends Activity implements OnClickListener, OnScrollListener, OnEditorActionListener {
 
 	private Button btn_searching, btn_taste, btn_caixi, btn_process;
 	private EditText et_search;
@@ -89,6 +93,7 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 			}
 		};
 	};
+	private InputMethodManager imm;
 
 
 	@Override
@@ -106,6 +111,7 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 	 */
 	private void initView() {
 
+		imm = ( InputMethodManager )getSystemService( Context.INPUT_METHOD_SERVICE );
 		btn_caixi = ( Button )findViewById( R.id.btn_caixi );
 		btn_caixi.setOnClickListener( this );
 		btn_taste = ( Button )findViewById( R.id.btn_taste );
@@ -114,7 +120,9 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 		btn_process.setOnClickListener( this );
 		btn_searching = ( Button )findViewById( R.id.btn_searching );
 		btn_searching.setOnClickListener( this );
+		btn_searching.requestFocus();
 		et_search = ( EditText )findViewById( R.id.et_search );
+		et_search.setOnEditorActionListener( this );
 		lv_searchresult = ( ListView )findViewById( R.id.lv_searchresult );
 		view = LayoutInflater.from( getApplicationContext() ).inflate( R.layout.tool_refreshlistview, null );
 		lv_searchresult.setOnScrollListener( this );
@@ -165,7 +173,7 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 
 		switch( v.getId() ) {
 		case R.id.btn_searching:
-
+			imm.hideSoftInputFromWindow( et_search.getApplicationWindowToken(), 0 );
 			String string = et_search.getText().toString();
 			Intent intent = getIntent();
 			if( intent.getStringExtra( "dishName" ) != null ) {
@@ -288,7 +296,7 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 			}
 			if( lastItem == adapter.getCount() + 1 ) {
 
-				adapter.setCount( adapter.getCount() + 10 );
+				adapter.setCount( adapter.getCount() + Constant.UtilConstant.LISTVIEW_MINCOUNT );
 				if( lastItem != adapter.getCount() + 1 ) {
 
 					adapter.notifyDataSetChanged();
@@ -306,7 +314,7 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 	protected void onPause() {
 
 		super.onPause();
-		overridePendingTransition( R.anim.slide_right_in, R.anim.slide_left_out );
+		overridePendingTransition( R.anim.slide_out_donothing, R.anim.slide_top_out );
 	}
 
 
@@ -416,5 +424,17 @@ public class SearchUi extends Activity implements OnClickListener, OnScrollListe
 
 		}
 
+	}
+
+
+	@Override
+	public boolean onEditorAction( TextView v, int actionId, KeyEvent event ) {
+
+		if( actionId == EditorInfo.IME_ACTION_SEARCH ) {
+			onClick( btn_searching );
+			imm.hideSoftInputFromWindow( et_search.getApplicationWindowToken(), 0 );
+			return true;
+		}
+		return false;
 	}
 }
