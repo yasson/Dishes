@@ -8,19 +8,15 @@ import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnDragListener;
-import android.view.View.OnSystemUiVisibilityChangeListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -29,8 +25,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.NumberPicker;
-import android.widget.NumberPicker.OnScrollListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -38,6 +32,7 @@ import com.dishes.adapter.HomeListViewAdapter;
 import com.dishes.common.Constant;
 import com.dishes.model.DishInfo;
 import com.dishes.model.WSResult;
+import com.dishes.ui.base.BaseActivity;
 import com.dishes.util.ImageCallback;
 import com.dishes.util.ImageLoader;
 import com.dishes.util.SlideHolder;
@@ -49,7 +44,7 @@ import com.dishes.webservice.WebServiceConstant;
  * @author SenYang
  * 
  */
-public class HomeUi extends Activity implements OnClickListener, OnItemClickListener, OnTouchListener {
+public class HomeUi extends BaseActivity implements OnClickListener, OnItemClickListener, OnTouchListener {
 
 	private ListView lv_home;
 	private HomeListViewAdapter adapter;
@@ -256,25 +251,21 @@ public class HomeUi extends Activity implements OnClickListener, OnItemClickList
 	@Override
 	public void onItemClick( AdapterView<?> arg0, View arg1, int arg2, long arg3 ) {
 
-		Intent intent = new Intent();
 		switch( arg2 ) {
 
 		case 0:
-			intent.setClass( getApplicationContext(), EachdayMealsUi.class );
-			startActivity( intent );
-			overridePendingTransition( R.anim.slide_right_in, R.anim.slide_left_out );
+			openActivity( EachdayMealsUi.class );
 
 			break;
 		case 1:
+			openActivity( WhatToEatUi.class );
 			break;
 		case 2:
 			break;
 		case 3:
 			break;
 		case 4:
-			intent.setClass( getApplicationContext(), CategoryDishesUi.class );
-			startActivity( intent );
-			overridePendingTransition( R.anim.slide_right_in, R.anim.slide_left_out );
+			openActivity( CategoryDishesUi.class );
 			break;
 
 		default:
@@ -282,6 +273,9 @@ public class HomeUi extends Activity implements OnClickListener, OnItemClickList
 		}
 
 	}
+
+
+
 
 
 	@Override

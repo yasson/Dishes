@@ -22,6 +22,12 @@ public class CommonMethod {
 	}
 
 
+	/**
+	 * 获取屏幕宽
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public static int getWindowSizeW( Context context ) {
 
 		DisplayMetrics dm = new DisplayMetrics();
@@ -30,17 +36,32 @@ public class CommonMethod {
 	}
 
 
+	/**
+	 * 获取屏幕高
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public static int getWindowSizeH( Context context ) {
 
 		DisplayMetrics dm = new DisplayMetrics();
 		dm = context.getResources().getDisplayMetrics();
 		return dm.heightPixels;
 	}
-	
-	public static int dipTopx(Context context, float dp) {
+
+
+	/**
+	 * dp转px
+	 * 
+	 * @param context
+	 * @param dp
+	 * @return
+	 */
+	public static int dipTopx( Context context, float dp ) {
+
 		final float scale = context.getResources().getDisplayMetrics().density;
-		Log.d("XXXXXX", "density=" + scale);
-		return (int) ((dp - 0.5f) * scale);
+		Log.d( "XXXXXX", "density=" + scale );
+		return ( int )( ( dp - 0.5f ) * scale );
 	}
-	
+
 }

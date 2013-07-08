@@ -3,9 +3,6 @@
  */
 package com.dishes.ui;
 
-import com.dishes.common.Constant;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -16,11 +13,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.dishes.common.Constant;
+import com.dishes.ui.base.BaseActivity;
+
 /**
  * @author SenYang
  * 
  */
-public class LoginUi extends Activity implements OnClickListener {
+public class LoginUi extends BaseActivity implements OnClickListener {
 
 	private EditText et_account, et_password;
 	private CheckBox cb_rp, cb_al;

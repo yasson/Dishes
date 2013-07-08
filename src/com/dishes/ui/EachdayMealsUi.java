@@ -10,7 +10,6 @@ import java.util.Map;
 
 import org.ksoap2.serialization.SoapObject;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +22,7 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dishes.adapter.EachdayMealsAdapter;
@@ -30,6 +30,7 @@ import com.dishes.common.CommonMethod;
 import com.dishes.common.Constant;
 import com.dishes.model.NutritionMealsInfo;
 import com.dishes.model.WSResult;
+import com.dishes.ui.base.BaseActivity;
 import com.dishes.util.ThreadTool;
 import com.dishes.webservice.WebServiceAction;
 import com.dishes.webservice.WebServiceConstant;
@@ -38,7 +39,7 @@ import com.dishes.webservice.WebServiceConstant;
  * @author SenYang
  * 
  */
-public class EachdayMealsUi extends Activity implements OnClickListener {
+public class EachdayMealsUi extends BaseActivity implements OnClickListener {
 
 	private final int GETNEWVALUE = 1;
 	private final int REFRESH = 2;
@@ -79,6 +80,9 @@ public class EachdayMealsUi extends Activity implements OnClickListener {
 	private int viewflagWidth;
 	private int offSet;
 	private int transeWidth;
+	private TextView tv_breakfast;
+	private TextView tv_lunch;
+	private TextView tv_supper;
 
 
 	/*
@@ -179,6 +183,12 @@ public class EachdayMealsUi extends Activity implements OnClickListener {
 	 */
 	private void initView() {
 
+		tv_breakfast = ( TextView )findViewById( R.id.tv_breakfast );
+		tv_lunch = ( TextView )findViewById( R.id.tv_lunch );
+		tv_supper = ( TextView )findViewById( R.id.tv_supper );
+		tv_breakfast.setOnClickListener( this );
+		tv_lunch.setOnClickListener( this );
+		tv_supper.setOnClickListener( this );
 		viewflag = ( ImageView )findViewById( R.id.iv_flag );
 		list = new ArrayList<NutritionMealsInfo>();
 		btn_last = ( Button )findViewById( R.id.btn_last );
@@ -240,6 +250,28 @@ public class EachdayMealsUi extends Activity implements OnClickListener {
 		case R.id.btn_list:
 			break;
 
+		case R.id.tv_breakfast:
+			if( vp.getCurrentItem() == 1 ) {
+				vp.setCurrentItem( 0 );
+			}
+			if( vp.getCurrentItem() == 2 ) {
+				vp.setCurrentItem( 1 );
+				vp.setCurrentItem( 0 );
+			}
+			break;
+		case R.id.tv_lunch:
+			vp.setCurrentItem( 1 );
+
+			break;
+		case R.id.tv_supper:
+			if( vp.getCurrentItem() == 1 ) {
+				vp.setCurrentItem( 2 );
+			}
+			if( vp.getCurrentItem() == 0 ) {
+				vp.setCurrentItem( 1 );
+				vp.setCurrentItem( 2 );
+			}
+			break;
 		default:
 			break;
 		}

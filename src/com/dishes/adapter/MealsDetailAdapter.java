@@ -6,6 +6,18 @@ package com.dishes.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.dishes.common.CommonMethod;
 import com.dishes.common.ViewHolder;
 import com.dishes.model.MealsDetailInfo;
@@ -14,22 +26,6 @@ import com.dishes.ui.HowToCook;
 import com.dishes.ui.R;
 import com.dishes.util.ImageCallback;
 import com.dishes.util.ImageLoader;
-
-import android.R.integer;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.ImageView.ScaleType;
 
 /**
  * @author SenYang

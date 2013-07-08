@@ -1,15 +1,15 @@
 package com.dishes.ui;
 
-import com.dishes.common.Constant;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.Menu;
 
-public class StartUi extends Activity {
+import com.dishes.common.Constant;
+import com.dishes.ui.base.BaseActivity;
+
+public class StartUi extends BaseActivity {
 
 	@Override
 	public void onCreate( Bundle savedInstanceState ) {

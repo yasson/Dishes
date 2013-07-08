@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.ksoap2.serialization.SoapObject;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -23,11 +22,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dishes.adapter.CookStepsAdapter;
 import com.dishes.common.CommonMethod;
 import com.dishes.common.ViewHolder;
 import com.dishes.model.MenuInfo;
@@ -36,6 +33,7 @@ import com.dishes.model.MenuInfo.IngredientsInfo;
 import com.dishes.model.MenuInfo.SeasoningInfo;
 import com.dishes.model.MenuInfo.StepsInfo;
 import com.dishes.model.WSResult;
+import com.dishes.ui.base.BaseActivity;
 import com.dishes.util.ImageCallback;
 import com.dishes.util.ImageLoader;
 import com.dishes.util.ThreadTool;
@@ -46,7 +44,7 @@ import com.dishes.webservice.WebServiceConstant;
  * @author SenYang
  * 
  */
-public class HowToCook extends Activity implements OnClickListener {
+public class HowToCook extends BaseActivity implements OnClickListener {
 
 	private Button btn_ddback;
 	private ImageView iv_dishPic;

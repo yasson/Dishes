@@ -11,7 +11,6 @@ import java.util.Map;
 import org.ksoap2.serialization.SoapObject;
 
 import android.app.ActionBar.LayoutParams;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -44,6 +43,7 @@ import com.dishes.common.Constant;
 import com.dishes.common.ViewHolder;
 import com.dishes.model.DishInfo;
 import com.dishes.model.WSResult;
+import com.dishes.ui.base.BaseActivity;
 import com.dishes.util.ImageLoader.ImageLoadTask;
 import com.dishes.util.ThreadTool;
 import com.dishes.webservice.WebServiceAction;
@@ -53,7 +53,7 @@ import com.dishes.webservice.WebServiceConstant;
  * @author SenYang
  * 
  */
-public class SearchUi extends Activity implements OnClickListener, OnScrollListener, OnEditorActionListener {
+public class SearchUi extends BaseActivity implements OnClickListener, OnScrollListener, OnEditorActionListener {
 
 	private Button btn_searching, btn_taste, btn_caixi, btn_process;
 	private EditText et_search;

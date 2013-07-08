@@ -25,10 +25,30 @@
     <string name="inputsearch">输入搜索内容···</string>
     <string name="defaultdesc">色香味美，口感宜人</string>
     <string name="loadingmore">加载中</string>
+    <string name="loading">正在加载</string>
     <string name="taste">口味</string>
     <string name="caixi">菜系</string>
     <string name="process">工艺</string>
-      <string name="searchInfo">搜索内容不能为空</string>
-            <string name="categorydishes">分类菜谱</string>
+    
+    
+    <string name="searchInfo">搜索内容不能为空</string>
+    <string name="categorydishes">分类菜谱</string>
+    <string name="pull_to_refresh_pull_label">下拉可以刷新</string>
+    <string name="pull_to_refresh_release_label">松开可以刷新</string>
+    <string name="pull_to_refresh_refreshing_label">加载中...</string>
+    <string name="pull_to_refresh_tap_label">下拉可以刷新</string>
+    <string name="pull_to_refresh_update">最近更新：</string>
+    
+        <string name="network_not_connected">网络连接失败，请检查网络设置</string>
+    <string name="xml_parser_failed">数据解析异常</string>
+    <string name="io_exception_error">文件流异常</string>
+    <string name="http_status_code_error">网络异常，错误码：%d</string>
+    <string name="http_exception_error">网络异常，请求超时</string>
+    <string name="socket_exception_error">网络异常，读取数据超时</string>
+    <string name="app_run_code_error">应用程序运行时异常</string>
+    
+    <string name="app_menu_surelogout">确定退出程序吗？</string>
+    <string name="sure">确定</string>
+    <string name="cancle">取消</string>
 
 </resources>

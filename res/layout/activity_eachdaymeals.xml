@@ -31,6 +31,7 @@
         android:layout_height="30dp" >
 
         <TextView
+            android:id="@+id/tv_breakfast"
             android:layout_width="100dp"
             android:layout_height="20dp"
             android:layout_alignParentLeft="true"
@@ -39,6 +40,7 @@
             android:text="@string/breakfast" />
 
         <TextView
+                android:id="@+id/tv_lunch"
             android:layout_width="100dp"
             android:layout_height="20dp"
             android:layout_centerHorizontal="true"
@@ -47,6 +49,7 @@
             android:text="@string/lunch" />
 
         <TextView
+                android:id="@+id/tv_supper"
             android:layout_width="100dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"

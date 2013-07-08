@@ -15,6 +15,7 @@ import com.dishes.common.Constant;
 import com.dishes.interfaces.startUi;
 import com.dishes.model.DishInfo;
 import com.dishes.model.WSResult;
+import com.dishes.ui.base.BaseActivity;
 import com.dishes.util.ThreadTool;
 import com.dishes.util.ImageLoader.ImageLoadTask;
 import com.dishes.webservice.WebServiceAction;
@@ -40,7 +41,7 @@ import android.widget.TextView;
  * @author SenYang
  * 
  */
-public class CategoryDetailUi extends Activity implements startUi, OnScrollListener, OnItemClickListener {
+public class CategoryDetailUi extends BaseActivity implements startUi, OnScrollListener, OnItemClickListener {
 
 	private TextView tv_categorytitle;
 	private HashMap<String, Object> dishMap;
