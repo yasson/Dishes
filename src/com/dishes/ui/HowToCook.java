@@ -155,12 +155,6 @@ public class HowToCook extends BaseActivity implements OnClickListener {
 
 				new ImageLoader().loadImage( iv_dishPic, menuInfo.getPic(), menuInfo.getMenuName(), 400, new ImageCallback() {
 
-					@Override
-					public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {
-
-						iv_dishPic.setImageBitmap( bitmap );
-
-					}
 
 
 					@Override
@@ -178,6 +172,16 @@ public class HowToCook extends BaseActivity implements OnClickListener {
 					@Override
 					public void imageLoadBefore() {
 
+					}
+
+
+					@Override
+					public void imageLoading( Bitmap bitmap, String url, float ratio, int width, int height ) {
+
+
+						iv_dishPic.setImageBitmap( bitmap );
+
+					
 					}
 				} );
 

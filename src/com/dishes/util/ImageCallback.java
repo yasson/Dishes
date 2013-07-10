@@ -22,7 +22,7 @@ public interface ImageCallback {
 	/**
 	 * 图片加载中
 	 */
-	public void imageLoading(Bitmap bitmap,float ratio,int width,int height);
+	public void imageLoading(Bitmap bitmap,String url,float ratio,int width,int height);
 
 
 	/**

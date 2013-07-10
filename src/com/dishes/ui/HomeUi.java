@@ -84,11 +84,6 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 					ImageLoader imageLoader = new ImageLoader();
 					imageLoader.loadImage( imageView, dishInfo.getDishPic(), dishInfo.getDishName(), Constant.HomeConstant.IMAGE_LENGTH, new ImageCallback() {
 
-						@Override
-						public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {
-
-							imageView.setImageBitmap( bitmap );
-						}
 
 
 						@Override
@@ -109,6 +104,15 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 						public void imageLoadBefore() {
 
 							pr.setVisibility( View.VISIBLE );
+						}
+
+
+						@Override
+						public void imageLoading( Bitmap bitmap, String url, float ratio, int width, int height ) {
+
+
+							imageView.setImageBitmap( bitmap );
+						
 						}
 
 					} );

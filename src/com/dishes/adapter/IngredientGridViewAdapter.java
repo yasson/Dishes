@@ -35,7 +35,7 @@ import com.dishes.util.ImageLoader;
  * @author SenYang
  * 
  */
-public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable{
+public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable {
 
 	private Context context;
 	private LayoutInflater layoutInflater;
@@ -102,6 +102,7 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable{
 
 			@Override
 			public void onClick( View v ) {
+
 				AnimationSet animationSet = new AnimationSet( true );
 				AlphaAnimation alphaAnimation = new AlphaAnimation( 1.0f, 0.0f );
 				int screenW = CommonMethod.getWindowSizeW( context );
@@ -116,14 +117,6 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable{
 		} );
 		ImageLoader imageLoader = new ImageLoader();
 		imageLoader.loadImage( viewHoder.iView, infos.get( position ).getInPic(), infos.get( position ).getInName(), 100, new ImageCallback() {
-
-			@Override
-			public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {
-
-				viewHoder.iView.setVisibility( View.VISIBLE );
-				viewHoder.iView.setImageBitmap( bitmap );
-			}
-
 
 			@Override
 			public void imageLoadOver() {
@@ -144,6 +137,14 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable{
 				viewHoder.iView.setVisibility( View.GONE );
 				viewHoder.pBar.setVisibility( View.VISIBLE );
 
+			}
+
+
+			@Override
+			public void imageLoading( Bitmap bitmap, String url, float ratio, int width, int height ) {
+
+				viewHoder.iView.setVisibility( View.VISIBLE );
+				viewHoder.iView.setImageBitmap( bitmap );
 			}
 		} );
 		return convertView;

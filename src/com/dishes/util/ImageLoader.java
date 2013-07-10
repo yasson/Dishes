@@ -55,10 +55,11 @@ public class ImageLoader {
 				@SuppressWarnings( "unchecked" )
 				Map<String, Object> map = ( Map<String, Object> )msg.obj;
 				Bitmap bitmap = ( Bitmap )map.get( "bitmap" );
+				String url=(String)map.get( "url" );
 				float ratio = ( Float )map.get( "ratio" );
 				int width = ( Integer )map.get( "width" );
 				int height = ( Integer )map.get( "height" );
-				imageCallback.imageLoading( bitmap, ratio, width, height );
+				imageCallback.imageLoading( bitmap, url, ratio, width, height );
 				imageCallback.imageLoadOver();
 				if( bitmap == null ) {
 					imageCallback.imageLoadFailed();
@@ -100,6 +101,7 @@ public class ImageLoader {
 		try {
 			Bitmap bitmap = BitmapFactory.decodeStream( ( new URL( imageUrl ) ).openStream(), null, options );
 			map.put( "bitmap", bitmap );
+			map.put( "url", imageUrl );
 			map.put( "ratio", ratio );
 			map.put( "width", width );
 			map.put( "height", height );

@@ -36,6 +36,7 @@ public class SearchAdapter extends BaseAdapter {
 	private Context context;
 	private List<SoapObject> list;
 	SearchUi searchUi = new SearchUi();
+	private ListView listView;
 
 
 	/**
@@ -44,6 +45,7 @@ public class SearchAdapter extends BaseAdapter {
 	 */
 	public SearchAdapter( Context applicationContext, List<SoapObject> list, ListView listView ) {
 
+		this.listView = listView;
 		this.context = applicationContext;
 		this.list = list;
 
@@ -95,7 +97,6 @@ public class SearchAdapter extends BaseAdapter {
 	public View getView( int arg0, View convertView, ViewGroup parent ) {
 
 		final ViewHolder viewHolder;
-		// 使用viewholder出现图片错位赋值问题，暂未解决
 		if( convertView == null ) {
 
 			convertView = ( ViewGroup )LayoutInflater.from( context ).inflate( R.layout.adapter_search, null );
@@ -109,38 +110,24 @@ public class SearchAdapter extends BaseAdapter {
 		} else {
 			viewHolder = ( ViewHolder )convertView.getTag();
 		}
+
 		final DishInfo dishInfo = new DishInfo( list.get( arg0 ) );
 		viewHolder.textView1.setText( dishInfo.getDishName() );
-		// viewHolder.imageView.setTag( dishInfo.getDishPic() );
+		viewHolder.imageView.setTag( dishInfo.getDishPic() );
+		// 这句代码的作用是为了解决convertView被重用的时候，图片预设的问题
+		viewHolder.imageView.setImageResource( R.drawable.loadingpic );
 		new ImageLoader().loadImage( viewHolder.imageView, dishInfo.getDishPic(), dishInfo.getDishName(), 100, new ImageCallback() {
-
-			@Override
-			public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {
-
-				// ImageView imageView = ( ImageView )listView.findViewWithTag(
-				// dishInfo.getDishPic() );
-				// if( imageView != null && dishInfo.getDishPic().equals(
-				// imageView.getTag() ) ) {
-				// imageView.setImageBitmap( bitmap );
-				// } else if( imageView != null ) {
-				// imageView.setVisibility( View.VISIBLE );
-				// }
-				viewHolder.imageView.setVisibility( View.VISIBLE );
-				viewHolder.imageView.setImageBitmap( bitmap );
-			}
-
 
 			@Override
 			public void imageLoadOver() {
 
-				viewHolder.progressBar.setVisibility( View.GONE );
 			}
 
 
 			@Override
 			public void imageLoadFailed() {
 
-				viewHolder.imageView.setImageResource( R.drawable.nopic );
+				viewHolder.imageView.setImageResource( R.drawable.loadingpic );
 
 			}
 
@@ -148,8 +135,19 @@ public class SearchAdapter extends BaseAdapter {
 			@Override
 			public void imageLoadBefore() {
 
-				viewHolder.imageView.setVisibility( View.INVISIBLE );
-				viewHolder.progressBar.setVisibility( View.VISIBLE );
+			}
+
+
+			@Override
+			public void imageLoading( Bitmap bitmap, String url, float ratio, int width, int height ) {
+
+				ImageView imageView = ( ImageView )listView.findViewWithTag( url );
+				if( imageView != null && url.equals( imageView.getTag() ) ) {
+					imageView.setImageBitmap( bitmap );
+					imageView.setTag( "" );
+				} else if( imageView != null ) {
+					imageView.setBackgroundResource( R.drawable.loadingpic );
+				}
 
 			}
 		} );

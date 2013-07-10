@@ -101,8 +101,29 @@ public class MealsDetailAdapter extends BaseAdapter {
 		ImageLoader imageLoader = new ImageLoader();
 		imageLoader.loadImage( null, usedInfos.get( position ).getDishPic(), usedInfos.get( position ).getDishName(),400, new ImageCallback() {
 
+
+
 			@Override
-			public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {
+			public void imageLoadOver() {
+
+			}
+
+
+			@Override
+			public void imageLoadFailed() {
+
+			}
+
+
+			@Override
+			public void imageLoadBefore() {
+
+			}
+
+
+			@Override
+			public void imageLoading( Bitmap bitmap, String url, float ratio, int width, int height ) {
+
 
 				int screenWidth = CommonMethod.getWindowSizeW( context );
 				int screenHeight = CommonMethod.getWindowSizeH( context );
@@ -121,24 +142,7 @@ public class MealsDetailAdapter extends BaseAdapter {
 						context.startActivity( intent );
 					}
 				} );
-			}
-
-
-			@Override
-			public void imageLoadOver() {
-
-			}
-
-
-			@Override
-			public void imageLoadFailed() {
-
-			}
-
-
-			@Override
-			public void imageLoadBefore() {
-
+			
 			}
 
 		} );

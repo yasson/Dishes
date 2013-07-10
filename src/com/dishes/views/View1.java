@@ -92,13 +92,6 @@ public class View1 extends BaseView implements OnClickListener {
 					imageLoader.loadImage( imageView, dishInfo.getDishPic(), dishInfo.getDishName(), Constant.HomeConstant.IMAGE_LENGTH, new ImageCallback() {
 
 						@Override
-						public void imageLoading( Bitmap bitmap, float ratio, int width, int height ) {
-
-							imageView.setImageBitmap( bitmap );
-						}
-
-
-						@Override
 						public void imageLoadOver() {
 
 							// TODO Auto-generated method stub
@@ -116,6 +109,14 @@ public class View1 extends BaseView implements OnClickListener {
 						public void imageLoadBefore() {
 
 							pr.setVisibility( View.VISIBLE );
+						}
+
+
+						@Override
+						public void imageLoading( Bitmap bitmap, String url, float ratio, int width, int height ) {
+
+							imageView.setImageBitmap( bitmap );
+
 						}
 
 					} );
@@ -168,7 +169,7 @@ public class View1 extends BaseView implements OnClickListener {
 		case R.id.btn_search:
 			Intent intent = new Intent();
 			intent.setClass( context, SearchUi.class );
-			home.turn(context);
+			home.turn( context );
 			// startActivity( intent );
 			// overridePendingTransition( android.R.anim.slide_in_left,
 			// android.R.anim.slide_out_right );
@@ -232,7 +233,6 @@ public class View1 extends BaseView implements OnClickListener {
 				// startActivity( intent );
 				// overridePendingTransition( R.anim.slide_right_in,
 				// R.anim.slide_left_out );
-			
 
 				break;
 			case 1:
