@@ -116,7 +116,7 @@ public class SearchAdapter extends BaseAdapter {
 		viewHolder.imageView.setTag( dishInfo.getDishPic() );
 		// 这句代码的作用是为了解决convertView被重用的时候，图片预设的问题
 		viewHolder.imageView.setImageResource( R.drawable.loadingpic );
-		new ImageLoader().loadImage( viewHolder.imageView, dishInfo.getDishPic(), dishInfo.getDishName(), 100, new ImageCallback() {
+		new ImageLoader().loadImage( context, viewHolder.imageView, dishInfo.getDishPic(), dishInfo.getDishName(), 100, new ImageCallback() {
 
 			@Override
 			public void imageLoadOver() {

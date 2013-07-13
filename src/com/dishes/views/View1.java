@@ -89,7 +89,7 @@ public class View1 extends BaseView implements OnClickListener {
 					tv_desc.setText( dishInfo.getDishDesc() );
 					ll_everyday.addView( view );
 					ImageLoader imageLoader = new ImageLoader();
-					imageLoader.loadImage( imageView, dishInfo.getDishPic(), dishInfo.getDishName(), Constant.HomeConstant.IMAGE_LENGTH, new ImageCallback() {
+					imageLoader.loadImage( context, imageView, dishInfo.getDishPic(), dishInfo.getDishName(), Constant.HomeConstant.IMAGE_LENGTH, new ImageCallback() {
 
 						@Override
 						public void imageLoadOver() {

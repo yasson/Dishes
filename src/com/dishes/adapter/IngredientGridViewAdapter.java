@@ -20,6 +20,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 	private Context context;
 	private LayoutInflater layoutInflater;
 	private List<IngredientInfo> infos;
+	private GridView gridView;
 
 
 	class ViewHoder {
@@ -50,8 +52,9 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 	}
 
 
-	public IngredientGridViewAdapter( Context context, LayoutInflater layoutInflater, List<IngredientInfo> infos ) {
+	public IngredientGridViewAdapter( GridView gridView, Context context, LayoutInflater layoutInflater, List<IngredientInfo> infos ) {
 
+		this.gridView = gridView;
 		this.context = context;
 		this.layoutInflater = layoutInflater;
 		this.infos = infos;
@@ -96,7 +99,8 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 		} else {
 			viewHoder = ( ViewHoder )convertView.getTag();
 		}
-
+		viewHoder.iView.setTag( infos.get( position ).getInPic() );
+		viewHoder.iView.setImageResource( R.drawable.loadingpic );
 		viewHoder.tView.setText( infos.get( position ).getInName() );
 		viewHoder.iView.setOnClickListener( new OnClickListener() {
 
@@ -116,12 +120,11 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 			}
 		} );
 		ImageLoader imageLoader = new ImageLoader();
-		imageLoader.loadImage( viewHoder.iView, infos.get( position ).getInPic(), infos.get( position ).getInName(), 100, new ImageCallback() {
+		imageLoader.loadImage( context, viewHoder.iView, infos.get( position ).getInPic(), infos.get( position ).getInName(), 100, new ImageCallback() {
 
 			@Override
 			public void imageLoadOver() {
 
-				viewHoder.pBar.setVisibility( View.GONE );
 			}
 
 
@@ -134,17 +137,19 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 			@Override
 			public void imageLoadBefore() {
 
-				viewHoder.iView.setVisibility( View.GONE );
-				viewHoder.pBar.setVisibility( View.VISIBLE );
-
 			}
 
 
 			@Override
 			public void imageLoading( Bitmap bitmap, String url, float ratio, int width, int height ) {
 
-				viewHoder.iView.setVisibility( View.VISIBLE );
-				viewHoder.iView.setImageBitmap( bitmap );
+				ImageView imageView = ( ImageView )gridView.findViewWithTag( url );
+				if( imageView != null && imageView.getTag().equals( url ) ) {
+					imageView.setImageBitmap( bitmap );
+				} else if( imageView != null ) {
+					imageView.setImageResource( R.drawable.loadingpic );
+				}
+
 			}
 		} );
 		return convertView;

@@ -99,7 +99,7 @@ public class MealsDetailAdapter extends BaseAdapter {
 		}
 		viewHolder.textView1.setText( usedInfos.get( position ).getDishName() );
 		ImageLoader imageLoader = new ImageLoader();
-		imageLoader.loadImage( null, usedInfos.get( position ).getDishPic(), usedInfos.get( position ).getDishName(),400, new ImageCallback() {
+		imageLoader.loadImage( context, viewHolder.imageView, usedInfos.get( position ).getDishPic(), usedInfos.get( position ).getDishName(),400, new ImageCallback() {
 
 
 

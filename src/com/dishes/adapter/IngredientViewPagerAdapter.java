@@ -64,7 +64,7 @@ public class IngredientViewPagerAdapter extends PagerAdapter {
 		GridView gridView = new GridView( context );
 		
 		gridView.setNumColumns( 4 );
-		IngredientGridViewAdapter adapter = new IngredientGridViewAdapter( context, layoutInflater, infos );
+		IngredientGridViewAdapter adapter = new IngredientGridViewAdapter( gridView,context, layoutInflater, infos );
 		gridView.setAdapter( adapter );
 		container.addView( gridView );
 		return gridView;

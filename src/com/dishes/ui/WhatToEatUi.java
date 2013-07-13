@@ -50,7 +50,6 @@ public class WhatToEatUi extends BaseActivity {
 			case REFRESH_INGREDIENT:
 				IngredientViewPagerAdapter adapter = new IngredientViewPagerAdapter( getApplicationContext() );
 				vp_ingredients.setAdapter( adapter );
-				System.out.println( "aaaaaaaaaaaaaa==========" );
 
 				break;
 
@@ -82,12 +81,11 @@ public class WhatToEatUi extends BaseActivity {
 			map.put( "startIdx", 0 );
 			map.put( "wsUser", WebServiceConstant.wsUser );
 			map.put( "classid", i );
-			System.out.println("******************               "+i);
 			ThreadTool.getInstance().addTask( new Runnable() {
 
 				@Override
 				public void run() {
-					System.out.println("---------------------              "+ map.get( "classid" ));
+
 					SoapObject soapObject = WebServiceAction.getSoapObject( WebServiceConstant.SERVICE_GETCOMMONINGREDIENTS,
 							WebServiceConstant.GETCOMMONINGREDIENTS, map, WebServiceConstant.SERVICENAMESPACE );
 					WSResult result = new WSResult( soapObject );
@@ -100,9 +98,7 @@ public class WhatToEatUi extends BaseActivity {
 
 						}
 						AppContext.ingredientMaps.put( "classid" + map.get( "classid" ), list );
-						System.out.println( AppContext.ingredientMaps.size()+ "     hhhhhhhhhhh==========" );
 						if( AppContext.ingredientMaps.size() == 7 ) {
-							System.out.println( "bbbbbb==========" );
 							mHandler.sendEmptyMessage( REFRESH_INGREDIENT );
 						}
 						break;
@@ -123,7 +119,6 @@ public class WhatToEatUi extends BaseActivity {
 	 */
 	private void initView() {
 
-	
 		gallery = ( Gallery )findViewById( R.id.gallery );
 		vp_ingredients = ( ViewPager )findViewById( R.id.vp_ingredients );
 		hs_chosen = ( HorizontalScrollView )findViewById( R.id.hs_chosen );

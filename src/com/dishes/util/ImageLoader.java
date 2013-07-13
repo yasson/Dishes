@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.dishes.AppContext;
 import com.dishes.ui.R;
 import com.dishes.util.ImageLoader.ImageLoadTask;
 
 import android.R.integer;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -35,6 +37,7 @@ public class ImageLoader {
 	private ArrayList<ImageLoadTask> taskList;
 	private int i = 0;
 	private ImageLoadTask imageLoadTask;
+	private Context context;
 
 
 	public ImageLoader() {
@@ -45,9 +48,11 @@ public class ImageLoader {
 	}
 
 
-	public void loadImage( final ImageView imageView, final String imageUrl, final String name, final int length, final ImageCallback imageCallback ) {
+	public void loadImage( Context context, final ImageView imageView, final String imageUrl, final String name, final int length,
+			final ImageCallback imageCallback ) {
 
 		imageCallback.imageLoadBefore();
+		this.context = context;
 		final Handler mHandler = new Handler() {
 
 			public void handleMessage( Message msg ) {
@@ -55,7 +60,7 @@ public class ImageLoader {
 				@SuppressWarnings( "unchecked" )
 				Map<String, Object> map = ( Map<String, Object> )msg.obj;
 				Bitmap bitmap = ( Bitmap )map.get( "bitmap" );
-				String url=(String)map.get( "url" );
+				String url = ( String )map.get( "url" );
 				float ratio = ( Float )map.get( "ratio" );
 				int width = ( Integer )map.get( "width" );
 				int height = ( Integer )map.get( "height" );
@@ -66,11 +71,20 @@ public class ImageLoader {
 				}
 			}
 		};
-		imageLoadTask = new ImageLoadTask( imageUrl, length, mHandler );
-		imageLoadTask.setId( imageUrl );
-		imageLoadTask.setName( name );
-		taskList.add( imageLoadTask );
-		threadTool.addTask( imageLoadTask );
+		Map<String, Object> map = null;
+		if( imageCache.getBitmapMap( imageUrl ) != null ) {
+			map = imageCache.getBitmapMap( imageUrl );
+			Message msg = new Message();
+			msg.obj = map;
+			mHandler.sendMessage( msg );
+		} else {
+			
+			imageLoadTask = new ImageLoadTask( imageUrl, length, mHandler );
+			imageLoadTask.setId( imageUrl );
+			imageLoadTask.setName( name );
+			taskList.add( imageLoadTask );
+			threadTool.addTask( imageLoadTask );
+		}
 
 	}
 
@@ -184,24 +198,29 @@ public class ImageLoader {
 		@Override
 		public void run() {
 
-			Map<String, Object> map;
-			if( RUN ) {
-				if( imageCache.getBitmapMap( imageUrl ) != null ) {
-					map = imageCache.getBitmapMap( imageUrl );
+			Map<String, Object> map = null;
 
-				} else {
+			if( imageCache.getBitmapMap( imageUrl ) != null ) {
+				map = imageCache.getBitmapMap( imageUrl );
+
+			} else {
+				if( RUN ) {
 					map = loadImageFromNet( imageUrl, length );
 					imageCache.addSrCache( imageUrl, map );
+					if( !FileUtils.putBitmapToSDCard( imageUrl, context, ( Bitmap )map.get( "bitmap" ) ) ) {
+						FileUtils.removeBitmapFrSDCard(imageUrl, context);
+					}
+					
 				}
-				if( RUN ) {
-					Message msg = new Message();
-					msg.obj = map;
-					mHandler.sendMessage( msg );
-				}
-
-				return;
-
 			}
+			if( map != null ) {
+				Message msg = new Message();
+				msg.obj = map;
+				mHandler.sendMessage( msg );
+			}
+
+			return;
+
 		}
 	}
 

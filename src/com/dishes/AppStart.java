@@ -20,6 +20,7 @@ import com.dishes.ui.HelpUi;
 import com.dishes.ui.LoginUi;
 import com.dishes.ui.R;
 import com.dishes.ui.base.BaseActivity;
+import com.dishes.util.FileUtils;
 
 /**
  * 
@@ -34,6 +35,8 @@ public class AppStart extends BaseActivity implements AnimationListener {
 		super.onCreate( savedInstanceState );
 		View view = View.inflate( getApplicationContext(), R.layout.activity_main, null );
 		setContentView( view );
+		AppContext.appName = getApplicationContext().getPackageName();
+		AppContext.appPath=FileUtils.getPackagePath( getApplicationContext() );
 		AnimationSet animationSet = new AnimationSet( true );
 		AlphaAnimation alphaAnimation = new AlphaAnimation( 0.1f, 1.0f );
 		// ScaleAnimation scaleAnimation = new ScaleAnimation(0.5f, 1f, 0.5f,
@@ -78,7 +81,7 @@ public class AppStart extends BaseActivity implements AnimationListener {
 
 		Intent intent = new Intent();
 		if( firstLogin() ) {
-			Editor editor =getSharedPreferences( Constant.PACKAGE_NAME, 0 ).edit();
+			Editor editor = getSharedPreferences( Constant.PACKAGE_NAME, 0 ).edit();
 			editor.putBoolean( Constant.FIRSTLOGIN, false );
 			editor.commit();
 			intent.setClass( getApplicationContext(), HelpUi.class );

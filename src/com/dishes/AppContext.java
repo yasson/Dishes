@@ -25,7 +25,10 @@ public class AppContext extends Application {
 	/**
 	 * 存放分类食材信息
 	 */
-	public static Map<String, List<IngredientInfo>> ingredientMaps=new HashMap<String, List<IngredientInfo>>();
+	public static Map<String, List<IngredientInfo>> ingredientMaps = new HashMap<String, List<IngredientInfo>>();
+	public static String appName = "";
+	public static String appPath="";
+	public static int i=0;
 	private Context context;
 
 
@@ -48,7 +51,6 @@ public class AppContext extends Application {
 	 * 
 	 */
 	private static void init() {
-
 
 	}
 

@@ -3,11 +3,9 @@
  */
 package com.dishes.util;
 
-import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.R.integer;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 
@@ -52,12 +50,25 @@ public class ImageCache {
 		if( icMap.get( imageUrl ) != null ) {
 			return icMap.get( imageUrl );
 
+		} else if( FileUtils.getBitmapFrSDCard( imageUrl ) != null ) {
+			Bitmap bitmap = FileUtils.getBitmapFrSDCard( imageUrl );
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put( "bitmap", bitmap );
+			map.put( "url", imageUrl );
+			map.put( "ratio", ( bitmap.getWidth() / bitmap.getHeight() ) * 1.0f );
+			map.put( "width", bitmap.getWidth() );
+			map.put( "height", bitmap.getHeight() );
+			icMap.put( imageUrl, map );
+			return map;
 		}
 
 		return null;
 
 	}
-	public int getA(){
+
+
+	public int getA() {
+
 		return i++;
 	}
 
