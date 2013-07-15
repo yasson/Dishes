@@ -14,32 +14,30 @@
     <ImageView
         android:id="@+id/iv_ingre"
         android:layout_width="match_parent"
-        android:contentDescription="@null"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:scaleType="centerCrop" />
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         android:alpha="0.3"
         android:background="#080808" />
 
     <TextView
         android:id="@+id/tv_ingrename"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="5dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
+        android:gravity="center"
         android:textColor="#ffffff"
-        android:textSize="16dp" />
+        android:textSize="13sp" />
 
 </RelativeLayout>

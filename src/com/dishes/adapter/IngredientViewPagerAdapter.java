@@ -7,15 +7,19 @@ package com.dishes.adapter;
 import java.util.List;
 
 import com.dishes.AppContext;
+import com.dishes.common.CommonMethod;
 import com.dishes.model.IngredientInfo;
 import com.dishes.ui.R;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 /**
  * 
@@ -26,12 +30,14 @@ public class IngredientViewPagerAdapter extends PagerAdapter {
 
 	private Context context;
 	private LayoutInflater layoutInflater;
+	private Handler handler;
 
 
-	public IngredientViewPagerAdapter( Context context ) {
+	public IngredientViewPagerAdapter( Context context,Handler handler ) {
 
 		this.context = context;
 		this.layoutInflater = LayoutInflater.from( context );
+		this.handler = handler;
 
 	}
 
@@ -61,13 +67,14 @@ public class IngredientViewPagerAdapter extends PagerAdapter {
 	public Object instantiateItem( ViewGroup container, int position ) {
 
 		List<IngredientInfo> infos = AppContext.ingredientMaps.get( "classid" + ( position + 1 ) );
+		RelativeLayout relativeLayout = new RelativeLayout( context );
 		GridView gridView = new GridView( context );
-		
+		relativeLayout.addView( gridView );
 		gridView.setNumColumns( 4 );
-		IngredientGridViewAdapter adapter = new IngredientGridViewAdapter( gridView,context, layoutInflater, infos );
+		IngredientGridViewAdapter adapter = new IngredientGridViewAdapter( handler, relativeLayout, gridView, context, layoutInflater, infos );
 		gridView.setAdapter( adapter );
-		container.addView( gridView );
-		return gridView;
+		container.addView( relativeLayout );
+		return relativeLayout;
 	}
 
 }

@@ -15,9 +15,14 @@ import android.R.integer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 
 import com.dishes.AppContext;
 import com.dishes.adapter.IngredientViewPagerAdapter;
@@ -35,20 +40,22 @@ import com.dishes.webservice.WebServiceConstant;
  * 
  */
 @SuppressWarnings( "deprecation" )
-public class WhatToEatUi extends BaseActivity {
+public class WhatToEatUi extends BaseActivity implements OnClickListener, OnItemClickListener {
 
 	private static final int REFRESH_INGREDIENT = 0;
 	private Gallery gallery;
 	private ViewPager vp_ingredients;
-	private HorizontalScrollView hs_chosen;
+	public static HorizontalScrollView hs_chosen;
+	public static LinearLayout ll_hs;
 	private Button btn_todishes;
+	public static List<String> listId;
 	private Handler mHandler = new Handler() {
 
 		public void handleMessage( android.os.Message msg ) {
 
 			switch( msg.what ) {
 			case REFRESH_INGREDIENT:
-				IngredientViewPagerAdapter adapter = new IngredientViewPagerAdapter( getApplicationContext() );
+				IngredientViewPagerAdapter adapter = new IngredientViewPagerAdapter( getApplicationContext(), mHandler );
 				vp_ingredients.setAdapter( adapter );
 
 				break;
@@ -119,10 +126,24 @@ public class WhatToEatUi extends BaseActivity {
 	 */
 	private void initView() {
 
+		listId = new ArrayList<String>();
 		gallery = ( Gallery )findViewById( R.id.gallery );
 		vp_ingredients = ( ViewPager )findViewById( R.id.vp_ingredients );
 		hs_chosen = ( HorizontalScrollView )findViewById( R.id.hs_chosen );
 		btn_todishes = ( Button )findViewById( R.id.btn_todishes );
+		ll_hs = ( LinearLayout )findViewById( R.id.ll_hs );
+
+	}
+
+
+	@Override
+	public void onItemClick( AdapterView<?> arg0, View arg1, int arg2, long arg3 ) {
+
+	}
+
+
+	@Override
+	public void onClick( View v ) {
 
 	}
 

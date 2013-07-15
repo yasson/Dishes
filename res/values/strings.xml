@@ -29,13 +29,15 @@
     <string name="taste">口味</string>
     <string name="caixi">菜系</string>
     <string name="process">工艺</string>
-    
+    <string name="choseningre">已选择食材：</string>
+    <string name="choseningre_already">这个食材已经添加过了</string>
+       <string name="choseningre_atmost">不能再添加更多食材了</string>
     
     <string name="searchInfo">搜索内容不能为空</string>
     <string name="categorydishes">分类菜谱</string>
     <string name="pull_to_refresh_pull_label">下拉可以刷新</string>
     <string name="pull_to_refresh_release_label">松开可以刷新</string>
-    <string name="pull_to_refresh_refreshing_label">加载中...</string>
+    <string name="pull_to_refresh_refreshing_label">加载中···</string>
     <string name="pull_to_refresh_tap_label">下拉可以刷新</string>
     <string name="pull_to_refresh_update">最近更新：</string>
     

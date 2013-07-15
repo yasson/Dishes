@@ -25,7 +25,7 @@ public class IngredientInfo {
 	 */
 	public IngredientInfo( SoapObject object ) {
 
-		this.inId = object.getPropertySafelyAsString( "inld" );
+		this.inId = object.getPropertySafelyAsString( "inId" );
 		this.inName = object.getPropertySafelyAsString( "inName" );
 		this.inPic = object.getPropertySafelyAsString( "inPic" );
 
