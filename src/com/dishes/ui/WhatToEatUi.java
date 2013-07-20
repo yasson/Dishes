@@ -7,29 +7,29 @@ package com.dishes.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.ksoap2.serialization.SoapObject;
 
-import android.R.integer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 import com.dishes.AppContext;
+import com.dishes.adapter.GalleryAdapter;
 import com.dishes.adapter.IngredientViewPagerAdapter;
 import com.dishes.model.IngredientInfo;
 import com.dishes.model.WSResult;
 import com.dishes.ui.base.BaseActivity;
-import com.dishes.util.LoadingDialog;
 import com.dishes.util.ThreadTool;
 import com.dishes.webservice.WebServiceAction;
 import com.dishes.webservice.WebServiceConstant;
@@ -39,10 +39,10 @@ import com.dishes.webservice.WebServiceConstant;
  * @author SenYang
  * 
  */
-@SuppressWarnings( "deprecation" )
-public class WhatToEatUi extends BaseActivity implements OnClickListener, OnItemClickListener {
+public class WhatToEatUi extends BaseActivity implements OnClickListener, OnItemClickListener, OnItemSelectedListener, OnPageChangeListener {
 
 	private static final int REFRESH_INGREDIENT = 0;
+	@SuppressWarnings( "deprecation" )
 	private Gallery gallery;
 	private ViewPager vp_ingredients;
 	public static HorizontalScrollView hs_chosen;
@@ -65,6 +65,7 @@ public class WhatToEatUi extends BaseActivity implements OnClickListener, OnItem
 			}
 		};
 	};
+	private GalleryAdapter gallery_adapter;
 
 
 	@Override
@@ -124,6 +125,7 @@ public class WhatToEatUi extends BaseActivity implements OnClickListener, OnItem
 	/**
 	 * 
 	 */
+	@SuppressWarnings( "deprecation" )
 	private void initView() {
 
 		listId = new ArrayList<String>();
@@ -132,6 +134,10 @@ public class WhatToEatUi extends BaseActivity implements OnClickListener, OnItem
 		hs_chosen = ( HorizontalScrollView )findViewById( R.id.hs_chosen );
 		btn_todishes = ( Button )findViewById( R.id.btn_todishes );
 		ll_hs = ( LinearLayout )findViewById( R.id.ll_hs );
+		gallery_adapter=new GalleryAdapter(getApplicationContext());
+		gallery.setAdapter( gallery_adapter );
+		gallery.setOnItemSelectedListener( this );
+		vp_ingredients.setOnPageChangeListener( this );
 
 	}
 
@@ -144,6 +150,49 @@ public class WhatToEatUi extends BaseActivity implements OnClickListener, OnItem
 
 	@Override
 	public void onClick( View v ) {
+
+		switch( v.getId() ) {
+		case R.id.btn_todishes:
+			openActivity( CompoundDishesUi.class );
+			break;
+
+		default:
+			break;
+		}
+
+	}
+
+
+	@Override
+	public void onItemSelected( AdapterView<?> arg0, View arg1, int arg2, long arg3 ) {
+		gallery_adapter.setSelected( arg2 );
+		vp_ingredients.setCurrentItem( arg2 );
+
+	}
+
+
+	@Override
+	public void onNothingSelected( AdapterView<?> arg0 ) {
+		gallery_adapter.setSelected( -1 );
+	}
+
+
+	@Override
+	public void onPageScrollStateChanged( int arg0 ) {
+
+	}
+
+
+	@Override
+	public void onPageScrolled( int arg0, float arg1, int arg2 ) {
+
+	}
+
+
+	@Override
+	public void onPageSelected( int arg0 ) {
+		gallery_adapter.setSelected( arg0 ); 	
+		gallery.setSelection( arg0 );
 
 	}
 

@@ -88,4 +88,8 @@ public class Constant {
 		public static int THREADCOUNT = 5;
 		public static int LISTVIEW_MINCOUNT = 10;
 	}
+	public static class WhatToEatConstant{
+		public static final String[] CATEGORY_LIST={"五谷类","蔬菜类","水果类","畜肉类","禽蛋类","水产类","其他"};
+		
+	}
 }
