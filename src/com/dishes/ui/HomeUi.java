@@ -189,7 +189,9 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 						return;
 						}
 					} );
-				}
+				}else {
+					
+				
 				WSResult wsResult = new WSResult( soapObject );
 				switch( Integer.parseInt( wsResult.getState() ) ) {
 				case 201:
@@ -206,7 +208,7 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 					break;
 				}
 			}
-		};
+		}};
 		ThreadTool threadTool = ThreadTool.getInstance();
 		threadTool.addTask( runnable );
 	}
