@@ -32,6 +32,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dishes.AppContext;
 import com.dishes.common.CommonMethod;
 import com.dishes.model.IngredientInfo;
 import com.dishes.ui.R;
@@ -62,14 +63,15 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 	}
 
 
-	public IngredientGridViewAdapter(Handler handler, RelativeLayout relativeLayout, GridView gridView, Context context, LayoutInflater layoutInflater,
+	public IngredientGridViewAdapter( Handler handler, RelativeLayout relativeLayout, GridView gridView, Context context, LayoutInflater layoutInflater,
 			List<IngredientInfo> infos ) {
 
 		this.relativeLayout = relativeLayout;
 		this.gridView = gridView;
 		this.context = context;
 		this.layoutInflater = layoutInflater;
-		this.infos = infos;this.handler=handler;
+		this.infos = infos;
+		this.handler = handler;
 	}
 
 
@@ -119,16 +121,16 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 			@Override
 			public void onClick( final View v ) {
 
-				if( WhatToEatUi.listId.size() >= 10 ) {
+				if( AppContext.list_ingredient_Ids.size() >= 10 ) {
 					Toast.makeText( context, R.string.choseningre_atmost, Toast.LENGTH_SHORT ).show();
 					return;
 				}
 
-				if( WhatToEatUi.listId.contains( infos.get( position ).getInId() ) ) {
+				if( AppContext.list_ingredient_Ids.contains( infos.get( position ).getInId() ) ) {
 					Toast.makeText( context, R.string.choseningre_already, Toast.LENGTH_SHORT ).show();
 					return;
 				}
-				WhatToEatUi.listId.add( infos.get( position ).getInId() );
+				AppContext.list_ingredient_Ids.add( infos.get( position ) );
 				final ImageView iView = new ImageView( context );
 				relativeLayout.addView( iView );
 				int[] a = { 0, 0 };
@@ -153,9 +155,10 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 				animationSet.setFillAfter( true );
 				iView.startAnimation( animationSet );
 				new Thread( new Runnable() {
-					
+
 					@Override
 					public void run() {
+
 						try {
 							Thread.sleep( 1000 );
 						} catch( InterruptedException e ) {
@@ -163,16 +166,17 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 							e.printStackTrace();
 						}
 						handler.post( new Runnable() {
-							
+
 							@Override
 							public void run() {
+
 								relativeLayout.removeView( iView );
 							}
 						} );
-						 
+
 					}
 				} ).start();
-				
+
 				animationSet.setAnimationListener( new AnimationListener() {
 
 					@Override
@@ -203,18 +207,21 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 
 							@Override
 							public void onClick( final View v ) {
+
 								AnimationSet animationSet = new AnimationSet( true );
 								AlphaAnimation alphaAnimation = new AlphaAnimation( 1.0f, 0.3f );
-								ScaleAnimation scaleAnimation = new ScaleAnimation( 1.2f, 0.1f, 1.2f, 0.1f , Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+								ScaleAnimation scaleAnimation = new ScaleAnimation( 1.2f, 0.1f, 1.2f, 0.1f, Animation.RELATIVE_TO_SELF, 0.5f,
+										Animation.RELATIVE_TO_SELF, 0.5f );
 								animationSet.addAnimation( alphaAnimation );
 								animationSet.addAnimation( scaleAnimation );
 								animationSet.setDuration( 500 );
 								v.startAnimation( animationSet );
-								
+
 								new Thread( new Runnable() {
-									
+
 									@Override
 									public void run() {
+
 										try {
 											Thread.sleep( 500 );
 										} catch( InterruptedException e ) {
@@ -222,17 +229,17 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 											e.printStackTrace();
 										}
 										handler.post( new Runnable() {
-											
+
 											@Override
 											public void run() {
+
 												WhatToEatUi.ll_hs.removeView( v );
-												WhatToEatUi.listId.remove(  infos.get( position ).getInId() );
+												AppContext.list_ingredient_Ids.remove( infos.get( position ));
 											}
 										} );
-										 
+
 									}
 								} ).start();
-				
 
 							}
 						} );

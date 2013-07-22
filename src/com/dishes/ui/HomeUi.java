@@ -27,8 +27,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dishes.adapter.HomeListViewAdapter;
+import com.dishes.common.CommonMethod;
 import com.dishes.common.Constant;
 import com.dishes.model.DishInfo;
 import com.dishes.model.WSResult;
@@ -178,6 +180,16 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 				// TODO Auto-generated method stub
 				SoapObject soapObject = WebServiceAction.getSoapObject( WebServiceConstant.SERVICE_EVERYDAY_URL, WebServiceConstant.GETPOPULARDISH,
 						everyDishMap, WebServiceConstant.SERVICENAMESPACE );
+				if( soapObject==null ) {
+					handler.post( new Runnable() {
+						
+						@Override
+						public void run() {
+						CommonMethod.netException( getApplicationContext() );
+						return;
+						}
+					} );
+				}
 				WSResult wsResult = new WSResult( soapObject );
 				switch( Integer.parseInt( wsResult.getState() ) ) {
 				case 201:

@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:staggered="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/holo_green_dark" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/what_to_eat"
+            android:textColor="#ffffff"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    -->
+
+ <!--    <com.dishes.views.staggeredgridview.StaggeredGridView
+        android:id="@+id/staggeredGridView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        staggered:drawSelectorOnTop="true"
+        staggered:numColumns="3" /> -->
+        <ListView
+        android:id="@+id/staggeredGridView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       />
 
 </LinearLayout>

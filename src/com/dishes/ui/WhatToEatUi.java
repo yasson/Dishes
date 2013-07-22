@@ -48,7 +48,7 @@ public class WhatToEatUi extends BaseActivity implements OnClickListener, OnItem
 	public static HorizontalScrollView hs_chosen;
 	public static LinearLayout ll_hs;
 	private Button btn_todishes;
-	public static List<String> listId;
+	
 	private Handler mHandler = new Handler() {
 
 		public void handleMessage( android.os.Message msg ) {
@@ -127,8 +127,7 @@ public class WhatToEatUi extends BaseActivity implements OnClickListener, OnItem
 	 */
 	@SuppressWarnings( "deprecation" )
 	private void initView() {
-
-		listId = new ArrayList<String>();
+	
 		gallery = ( Gallery )findViewById( R.id.gallery );
 		vp_ingredients = ( ViewPager )findViewById( R.id.vp_ingredients );
 		hs_chosen = ( HorizontalScrollView )findViewById( R.id.hs_chosen );
@@ -136,6 +135,7 @@ public class WhatToEatUi extends BaseActivity implements OnClickListener, OnItem
 		ll_hs = ( LinearLayout )findViewById( R.id.ll_hs );
 		gallery_adapter=new GalleryAdapter(getApplicationContext());
 		gallery.setAdapter( gallery_adapter );
+		btn_todishes.setOnClickListener( this );
 		gallery.setOnItemSelectedListener( this );
 		vp_ingredients.setOnPageChangeListener( this );
 

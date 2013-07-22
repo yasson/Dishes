@@ -4,6 +4,7 @@
  */
 package com.dishes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ public class AppContext extends Application {
 	public static String appName = "";
 	public static String appPath="";
 	public static int i=0;
+	public static List<IngredientInfo> list_ingredient_Ids = new ArrayList<IngredientInfo>();
 	private Context context;
 
 
