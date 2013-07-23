@@ -6,7 +6,6 @@ package com.dishes.adapter;
 
 import java.util.List;
 
-import android.R.integer;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -26,7 +25,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -59,7 +57,6 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 
 		private ImageView iView;
 		private TextView tView;
-		private ProgressBar pBar;
 	}
 
 
@@ -105,7 +102,6 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 			convertView = layoutInflater.inflate( R.layout.adapter_ingredient_gridview, null );
 			viewHoder.tView = ( TextView )convertView.findViewById( R.id.tv_ingrename );
 			viewHoder.iView = ( ImageView )convertView.findViewById( R.id.iv_ingre );
-			viewHoder.pBar = ( ProgressBar )convertView.findViewById( R.id.pbar );
 			int screenW = CommonMethod.getWindowSizeW( context );
 			convertView.setLayoutParams( new AbsListView.LayoutParams( screenW / 4, screenW / 4 ) );
 
@@ -126,7 +122,7 @@ public class IngredientGridViewAdapter extends BaseAdapter implements Cloneable 
 					return;
 				}
 
-				if( AppContext.list_ingredient_Ids.contains( infos.get( position ).getInId() ) ) {
+				if( AppContext.list_ingredient_Ids.contains( infos.get( position ) ) ) {
 					Toast.makeText( context, R.string.choseningre_already, Toast.LENGTH_SHORT ).show();
 					return;
 				}

@@ -6,11 +6,6 @@ package com.dishes.adapter;
 
 import java.util.List;
 
-import com.dishes.AppContext;
-import com.dishes.common.CommonMethod;
-import com.dishes.model.IngredientInfo;
-import com.dishes.ui.R;
-
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
@@ -18,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.dishes.AppContext;
+import com.dishes.model.IngredientInfo;
 
 /**
  * 
