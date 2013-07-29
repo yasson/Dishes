@@ -3,14 +3,20 @@
  */
 package com.dishes.model;
 
+import java.io.Serializable;
+
 import org.ksoap2.serialization.SoapObject;
 
 /**
  * @author SenYang
  * 
  */
-public class DishInfo {
+public class DishInfo implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1578028418680488269L;
 	private String dishId;
 	private String dishName;
 	private String dishPic;

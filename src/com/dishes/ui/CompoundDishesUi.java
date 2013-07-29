@@ -11,12 +11,15 @@ import java.util.Map;
 
 import org.ksoap2.serialization.SoapObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -38,16 +41,16 @@ import com.dishes.webservice.WebServiceConstant;
  * @author YangSen
  * 
  */
-public class CompoundDishesUi extends BaseActivity implements OnScrollListener {
+public class CompoundDishesUi extends BaseActivity implements OnScrollListener,OnItemClickListener {
 
-	private ListView staggeredGridView1;
+	private ListView lv_dishes;
 	private List<DishInfo> dishInfos;
 	private Handler handler = new Handler() {
 
 		public void handleMessage( android.os.Message msg ) {
 
-			CompoundDishesAdapter adapter = new CompoundDishesAdapter( getApplicationContext(), dishInfos, staggeredGridView1 );
-			staggeredGridView1.setAdapter( adapter );
+			CompoundDishesAdapter adapter = new CompoundDishesAdapter( getApplicationContext(), dishInfos, lv_dishes );
+			lv_dishes.setAdapter( adapter );
 
 		};
 	};
@@ -100,8 +103,8 @@ public class CompoundDishesUi extends BaseActivity implements OnScrollListener {
 					@Override
 					public void run() {
 
-						adapter = new CompoundDishesAdapter( getApplicationContext(), dishInfos, staggeredGridView1 );
-						staggeredGridView1.setAdapter( adapter );
+						adapter = new CompoundDishesAdapter( getApplicationContext(), dishInfos, lv_dishes );
+						lv_dishes.setAdapter( adapter );
 					}
 				} );
 
@@ -117,11 +120,22 @@ public class CompoundDishesUi extends BaseActivity implements OnScrollListener {
 	private void initView() {
 
 		dishInfos = new ArrayList<DishInfo>();
-		staggeredGridView1 = ( ListView )findViewById( R.id.staggeredGridView1 );
-		staggeredGridView1.setOnScrollListener( this );
+		lv_dishes = ( ListView )findViewById( R.id.staggeredGridView1 );
+		lv_dishes.setOnScrollListener( this );
+		lv_dishes.setOnItemClickListener( this );
 
 	}
 
+	@Override
+	public void onItemClick( AdapterView<?> parent, View view, int position, long id ) {
+		DishInfo dishInfo = ( DishInfo )parent.getAdapter().getItem( position ) ;
+		String dishId = dishInfo.getDishId();
+		Intent intent = new Intent();
+		intent.putExtra( "dishId", dishId );
+		intent.setClass( getApplicationContext(), HowToCook.class );
+		startActivity( intent );
+		overridePendingTransition( R.anim.slide_right_in, R.anim.slide_left_out );
+	}
 
 	@Override
 	public void onScroll( AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount ) {
@@ -140,7 +154,7 @@ public class CompoundDishesUi extends BaseActivity implements OnScrollListener {
 		
 		
 		AppContext.IF_LOAD = false;
-		if( staggeredGridView1.getChildCount() == 0 ) {
+		if( lv_dishes.getChildCount() == 0 ) {
 			return;
 		}
 		View convertView = null;
@@ -175,5 +189,7 @@ public class CompoundDishesUi extends BaseActivity implements OnScrollListener {
 
 
 	}
+
+
 
 }
