@@ -13,7 +13,7 @@ package com.dishes.webservice;
 public class WebServiceConstant {
 	public static final String wsUser = "1a1e02c02ee737b95e448a94c84c23ed";
 	public static final String Server_IP = "http://60.209.248.227:8080";
-//	public static final String Server_IP = "http://192.168.1.104:8080";
+//	public static final String Server_IP = "http://192.168.0.108:8080";
 	// ************************命名空间************************
 	public static final String SERVICENAMESPACE = "http://impl.ws.healthyrecipes.haiersoft.com/";
 	// ************************wsdl常量*************************

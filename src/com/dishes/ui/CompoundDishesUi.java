@@ -134,22 +134,28 @@ public class CompoundDishesUi extends BaseActivity implements OnScrollListener {
 
 
 	@Override
-	public void onScrollStateChanged( AbsListView view, int scrollState ) {
+	public void onScrollStateChanged( AbsListView view, int scrollState ) {	
 
-		System.gc();
+		
+		
+		
+		AppContext.IF_LOAD = false;
 		if( staggeredGridView1.getChildCount() == 0 ) {
 			return;
 		}
-		if( scrollState == OnScrollListener.SCROLL_STATE_IDLE ) {
+		View convertView = null;
+		if( scrollState == SCROLL_STATE_IDLE ) {
+			AppContext.IF_LOAD = true;
+
 			ArrayList<ImageLoadTask> list = ThreadTool.getImageLoadTasks();
 			for( int i = 0; i < list.size(); i++ ) {
 				REMOVE = true;
-				for( int j = firstVisibleItem; j < lastItem - 1; j++ ) {
-					DishInfo dishInfo = dishInfos.get( i );
-					if( list.get( i ).getId().equals( dishInfo.getDishPic() ) ) {
-						REMOVE = false;
-						break;
-					}
+				for( int j = firstVisibleItem; j < lastItem; j++ ) {
+						DishInfo dishInfo = dishInfos.get( j );
+						if( list.get( i ).getId().equals( dishInfo.getDishPic() ) ) {
+							REMOVE = false;
+							break;
+						}
 				}
 				if( REMOVE ) {
 					list.get( i ).stopTask();
@@ -158,7 +164,15 @@ public class CompoundDishesUi extends BaseActivity implements OnScrollListener {
 				}
 
 			}
+			
+			
+			
+			for( int i = firstVisibleItem; i <= lastItem-1; i++ ) {
+
+				adapter.getView( i, convertView, null );
+			}
 		}
+
 
 	}
 

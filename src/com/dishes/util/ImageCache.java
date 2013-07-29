@@ -24,7 +24,14 @@ public class ImageCache {
 
 	private ImageCache() {
 
-		icMap = new LruCache<String, Map<String, Object>>( 4 * 1024 * 1024 );
+		icMap = new LruCache<String, Map<String, Object>>( 4 * 1024 * 1024 ) {
+
+			@Override
+			protected int sizeOf( String key, Map<String, Object> value ) {
+
+				return ( ( Bitmap )value.get( "bitmap" ) ).getByteCount();
+			}
+		};
 	}
 
 
@@ -50,17 +57,18 @@ public class ImageCache {
 		if( icMap.get( imageUrl ) != null ) {
 			return icMap.get( imageUrl );
 
-		} else if( FileUtils.getBitmapFrSDCard( imageUrl ) != null ) {
-			Bitmap bitmap = FileUtils.getBitmapFrSDCard( imageUrl );
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put( "bitmap", bitmap );
-			map.put( "url", imageUrl );
-			map.put( "ratio", ( bitmap.getWidth() / bitmap.getHeight() ) * 1.0f );
-			map.put( "width", bitmap.getWidth() );
-			map.put( "height", bitmap.getHeight() );
-			icMap.put( imageUrl, map );
-			return map;
-		}
+		} 
+//		else if( FileUtils.getBitmapFrSDCard( imageUrl ) != null ) {
+//			Bitmap bitmap = FileUtils.getBitmapFrSDCard( imageUrl );
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			map.put( "bitmap", bitmap );
+//			map.put( "url", imageUrl );
+//			map.put( "ratio", ( bitmap.getWidth() / bitmap.getHeight() ) * 1.0f );
+//			map.put( "width", bitmap.getWidth() );
+//			map.put( "height", bitmap.getHeight() );
+//			icMap.put( imageUrl, map );
+//			return map;
+//		}
 
 		return null;
 

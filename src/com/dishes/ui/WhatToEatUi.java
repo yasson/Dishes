@@ -77,7 +77,6 @@ public class WhatToEatUi extends BaseActivity implements OnClickListener, OnItem
 		getIngredientsInfo();
 	}
 
-
 	/**
 	 * 
 	 */
@@ -195,5 +194,10 @@ public class WhatToEatUi extends BaseActivity implements OnClickListener, OnItem
 		gallery.setSelection( arg0 );
 
 	}
+@Override
+public void onBackPressed() {
 
+	super.onBackPressed();
+	AppContext.list_ingredient_Ids.clear();
+}
 }

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dishes.AppContext;
 import com.dishes.model.DishInfo;
 import com.dishes.ui.R;
 import com.dishes.util.ImageCallback;
@@ -84,12 +85,11 @@ public class CompoundDishesAdapter extends BaseAdapter {
 		ViewHolder viewHolder;
 		if( convertView == null ) {
 			// LayoutParams lp;
-
 			viewHolder = new ViewHolder();
 			convertView = layoutInflater.inflate( R.layout.adapter_compounddishes, parent, false );
 			// lp=new LayoutParams( convertView.getLayoutParams() );
 			// lp.span=staggeredGridView.getColumnCount();
-			// convertView.setLayoutParams( lp );
+			// convertView.setLayoutParams( lp );o
 
 			viewHolder.iView = ( ImageView )convertView.findViewById( R.id.iv_ingre );
 			viewHolder.tViewName = ( TextView )convertView.findViewById( R.id.tv_ingrename );
@@ -104,6 +104,9 @@ public class CompoundDishesAdapter extends BaseAdapter {
 		viewHolder.iView.setTag( dishPic );
 		viewHolder.iView.setImageResource( R.drawable.loadingpic );
 		ImageLoader imageLoader = new ImageLoader();
+		if( AppContext.IF_LOAD ) {
+			
+		
 		imageLoader.loadImage( context, viewHolder.iView, dishPic, dishName, 400, new ImageCallback() {
 
 			@Override
@@ -135,7 +138,7 @@ public class CompoundDishesAdapter extends BaseAdapter {
 			public void imageLoadBefore() {
 
 			}
-		} );
+		} );}
 
 		return convertView;
 	}

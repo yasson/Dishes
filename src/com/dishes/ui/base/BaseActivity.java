@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import com.dishes.AppManager;
 import com.dishes.ui.R;
+import com.dishes.util.ThreadTool;
 
 /**
  * activity基类
@@ -17,7 +18,7 @@ import com.dishes.ui.R;
  * @author SenYang
  * 
  */
-public class BaseActivity extends Activity{
+public class BaseActivity extends Activity {
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
@@ -58,6 +59,7 @@ public class BaseActivity extends Activity{
 	@Override
 	protected void onStop() {
 
+		ThreadTool.getInstance().endTask();
 		super.onStop();
 	}
 
@@ -92,6 +94,5 @@ public class BaseActivity extends Activity{
 		overridePendingTransition( R.anim.slide_right_in, R.anim.slide_left_out );
 
 	}
-
 
 }

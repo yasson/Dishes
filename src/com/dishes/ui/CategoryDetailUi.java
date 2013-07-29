@@ -48,8 +48,12 @@ public class CategoryDetailUi extends BaseActivity implements startUi, OnScrollL
 	private int title;
 	private ListView lv_dishes;
 	private static final int SHOWRESULT = 1;
+	private static final int ADDMORE = 2;
 	private SearchAdapter adapter;
 	private List<SoapObject> lists;
+	private List<SoapObject> listA;
+	// private int startP = 0;
+	// private int countP = 10;
 	private Handler mHandler = new Handler() {
 
 		public void handleMessage( Message msg ) {
@@ -58,8 +62,13 @@ public class CategoryDetailUi extends BaseActivity implements startUi, OnScrollL
 			case SHOWRESULT:
 				@SuppressWarnings( "unchecked" )
 				List<SoapObject> list = ( List<SoapObject> )msg.obj;
-				lists = list;
-				adapter = new SearchAdapter( getApplicationContext(), list, lv_dishes );
+				listA = list;
+				// for( int i = startP; i < countP; i++ ) {
+				// lists.add( list.get( i ) );
+				// }
+				// startP += countP;
+
+				adapter = new SearchAdapter( getApplicationContext(), listA, lv_dishes );
 				if( lv_dishes.getFooterViewsCount() != 0 ) {
 					lv_dishes.removeFooterView( view );
 				}
@@ -68,6 +77,8 @@ public class CategoryDetailUi extends BaseActivity implements startUi, OnScrollL
 				}
 				lv_dishes.setAdapter( adapter );
 				done();
+				break;
+			case ADDMORE:
 				break;
 
 			default:
@@ -170,6 +181,8 @@ public class CategoryDetailUi extends BaseActivity implements startUi, OnScrollL
 	 */
 	private void initView() {
 
+		listA = new ArrayList<SoapObject>();
+		lists = new ArrayList<SoapObject>();
 		Intent intent = getIntent();
 		title = intent.getIntExtra( "categoryType", 0 );
 		lv_dishes = ( ListView )findViewById( R.id.lv_dish );
@@ -225,12 +238,15 @@ public class CategoryDetailUi extends BaseActivity implements startUi, OnScrollL
 	@Override
 	public void onScrollStateChanged( AbsListView view, int scrollState ) {
 
-		if( lastVisibleItem == adapter.getCount() + 1 && scrollState == SCROLL_STATE_IDLE ) {
+		if( lv_dishes.getChildCount() == 0 ) {
+			return;
+		}
+		if( scrollState == OnScrollListener.SCROLL_STATE_IDLE ) {
 			ArrayList<ImageLoadTask> list = ThreadTool.getImageLoadTasks();
 			for( int i = 0; i < list.size(); i++ ) {
 				REMOVE = true;
 				for( int j = firstVisibleItem; j < lastVisibleItem - 1; j++ ) {
-					DishInfo dishInfo = new DishInfo( lists.get( j ) );
+					DishInfo dishInfo = new DishInfo( listA.get( j ) );
 					if( list.get( i ).getId().equals( dishInfo.getDishPic() ) ) {
 						REMOVE = false;
 						break;
@@ -243,12 +259,17 @@ public class CategoryDetailUi extends BaseActivity implements startUi, OnScrollL
 				}
 
 			}
-			if( adapter.getCount() == lists.size() ) {
-				lv_dishes.removeFooterView( this.view );
-				return;
+			if( lastVisibleItem == adapter.getCount() + 1 ) {
+
+				adapter.setCount( adapter.getCount() + Constant.UtilConstant.LISTVIEW_MINCOUNT );
+				if( lastVisibleItem != adapter.getCount() + 1 ) {
+
+					adapter.notifyDataSetChanged();
+				} else {
+					lv_dishes.removeFooterView( this.view );
+				}
+
 			}
-			adapter.setCount( adapter.getCount() + Constant.UtilConstant.LISTVIEW_MINCOUNT );
-			adapter.notifyDataSetChanged();
 		}
 
 	}

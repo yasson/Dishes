@@ -78,7 +78,7 @@ public class ImageLoader {
 			msg.obj = map;
 			mHandler.sendMessage( msg );
 		} else {
-			
+
 			imageLoadTask = new ImageLoadTask( imageUrl, length, mHandler );
 			imageLoadTask.setId( imageUrl );
 			imageLoadTask.setName( name );
@@ -203,14 +203,19 @@ public class ImageLoader {
 			if( imageCache.getBitmapMap( imageUrl ) != null ) {
 				map = imageCache.getBitmapMap( imageUrl );
 
+			} else if( FileUtils.getBitmapFrSDCard( imageUrl ) != null ) {
+				if( RUN )
+					map = loadImageFromSDCard( imageUrl );
 			} else {
 				if( RUN ) {
 					map = loadImageFromNet( imageUrl, length );
-					imageCache.addSrCache( imageUrl, map );
-					if( !FileUtils.putBitmapToSDCard( imageUrl, context, ( Bitmap )map.get( "bitmap" ) ) ) {
-						FileUtils.removeBitmapFrSDCard(imageUrl, context);
+					if( map != null ) {
+						imageCache.addSrCache( imageUrl, map );
+						if( !FileUtils.putBitmapToSDCard( imageUrl, context, ( Bitmap )map.get( "bitmap" ) ) ) {
+							FileUtils.removeBitmapFrSDCard( imageUrl, context );
+						}
 					}
-					
+
 				}
 			}
 			if( map != null ) {
@@ -219,8 +224,24 @@ public class ImageLoader {
 				mHandler.sendMessage( msg );
 			}
 
-			return;
+		}
 
+
+		/**
+		 * @param imageUrl2
+		 * @return
+		 */
+		private Map<String, Object> loadImageFromSDCard( String imageUrl2 ) {
+
+			Bitmap bitmap = FileUtils.getBitmapFrSDCard( imageUrl );
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put( "bitmap", bitmap );
+			map.put( "url", imageUrl );
+			map.put( "ratio", ( bitmap.getWidth() / bitmap.getHeight() ) * 1.0f );
+			map.put( "width", bitmap.getWidth() );
+			map.put( "height", bitmap.getHeight() );
+			imageCache.addSrCache( imageUrl, map );
+			return map;
 		}
 	}
 

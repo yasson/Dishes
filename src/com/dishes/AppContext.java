@@ -31,6 +31,7 @@ public class AppContext extends Application {
 	public static String appPath="";
 	public static int i=0;
 	public static List<IngredientInfo> list_ingredient_Ids = new ArrayList<IngredientInfo>();
+	public static boolean IF_LOAD=true;
 	private Context context;
 
 

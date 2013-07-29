@@ -3,6 +3,7 @@
  */
 package com.dishes.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;
@@ -66,7 +67,7 @@ public class SearchAdapter extends BaseAdapter {
 	public int getCount() {
 
 		return count <= list.size() ? count : list.size();
-		// return list.size();
+//		 return list.size();
 	}
 
 
@@ -114,6 +115,7 @@ public class SearchAdapter extends BaseAdapter {
 		final DishInfo dishInfo = new DishInfo( list.get( arg0 ) );
 		viewHolder.textView1.setText( dishInfo.getDishName() );
 		viewHolder.imageView.setTag( dishInfo.getDishPic() );
+		
 		// 这句代码的作用是为了解决convertView被重用的时候，图片预设的问题
 		viewHolder.imageView.setImageResource( R.drawable.loadingpic );
 		new ImageLoader().loadImage( context, viewHolder.imageView, dishInfo.getDishPic(), dishInfo.getDishName(), 100, new ImageCallback() {
@@ -153,5 +155,17 @@ public class SearchAdapter extends BaseAdapter {
 		} );
 		return convertView;
 	}
-
+//	public void setList(ArrayList<XXX> list) {
+//        this.List = list;
+//        notifyDataSetInvalidated();
+//}
+//
+//public void addList(ArrayList<XXX> list) {
+//        if (this.List != null) {
+//                this.List.addAll(list);
+//                notifyDataSetChanged();
+//        } else {
+//                setList(list);
+//        }
+//}
 }

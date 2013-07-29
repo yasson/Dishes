@@ -58,7 +58,7 @@ public class ThreadTool {
 	}
 
 
-	public void endTask( Runnable runnable ) {
+	public void endTask( ) {
 
 		while( imageLoadTasks.size() != 0 ) {
 			ImageLoadTask task = imageLoadTasks.remove( 0 );
