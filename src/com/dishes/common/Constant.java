@@ -92,4 +92,11 @@ public class Constant {
 		public static final String[] CATEGORY_LIST={"五谷类","蔬菜类","水果类","畜肉类","禽蛋类","水产类","其他"};
 		
 	}
+	public static class Ingredient{
+		public static final int HOTCOUNT=30;
+		
+		
+		
+		
+	}
 }

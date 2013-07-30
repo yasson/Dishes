@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dishes.views.staggeredgridview;
+package com.dishes.views.stageredggridview;
 
 import android.annotation.TargetApi;
 import android.os.Build;

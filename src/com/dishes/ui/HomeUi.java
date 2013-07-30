@@ -27,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dishes.adapter.HomeListViewAdapter;
 import com.dishes.common.CommonMethod;
@@ -39,6 +38,7 @@ import com.dishes.util.ImageCallback;
 import com.dishes.util.ImageLoader;
 import com.dishes.util.SlideHolder;
 import com.dishes.util.ThreadTool;
+import com.dishes.util.bitmapfun.util.ImageCache;
 import com.dishes.webservice.WebServiceAction;
 import com.dishes.webservice.WebServiceConstant;
 
@@ -54,6 +54,7 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 	private HorizontalScrollView hScrollView;
 	private LinearLayout ll_everyday;
 	private final int EVERYDAYVIEW = 1;
+	private boolean TODAY;
 	private Handler handler = new Handler() {
 
 		@SuppressWarnings( "unchecked" )
@@ -84,40 +85,37 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 					tv_desc.setText( dishInfo.getDishDesc() );
 					ll_everyday.addView( view );
 					ImageLoader imageLoader = new ImageLoader();
-					imageLoader.loadImage(getApplicationContext(), imageView, dishInfo.getDishPic(), dishInfo.getDishName(), Constant.HomeConstant.IMAGE_LENGTH, new ImageCallback() {
+					imageLoader.loadImage( getApplicationContext(), imageView, dishInfo.getDishPic(), dishInfo.getDishName(),
+							Constant.HomeConstant.IMAGE_LENGTH, new ImageCallback() {
+
+								@Override
+								public void imageLoadOver() {
+
+									pr.setVisibility( View.GONE );
+								}
 
 
+								@Override
+								public void imageLoadFailed() {
 
-						@Override
-						public void imageLoadOver() {
-
-							// TODO Auto-generated method stub
-							pr.setVisibility( View.GONE );
-						}
+								}
 
 
-						@Override
-						public void imageLoadFailed() {
+								@Override
+								public void imageLoadBefore() {
 
-						}
-
-
-						@Override
-						public void imageLoadBefore() {
-
-							pr.setVisibility( View.VISIBLE );
-						}
+									pr.setVisibility( View.VISIBLE );
+								}
 
 
-						@Override
-						public void imageLoading( Bitmap bitmap, String url, float ratio, int width, int height ) {
+								@Override
+								public void imageLoading( Bitmap bitmap, String url, float ratio, int width, int height ) {
 
+									imageView.setImageBitmap( bitmap );
 
-							imageView.setImageBitmap( bitmap );
-						
-						}
+								}
 
-					} );
+							} );
 				}
 				break;
 
@@ -138,7 +136,6 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
 
-		// TODO Auto-generated method stub
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_home );
 		initView();
@@ -154,9 +151,10 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 	@Override
 	protected void onResume() {
 
-		// TODO Auto-generated method stub
 		super.onResume();
-		getEveryDayDishInfo();
+		if( !TODAY ) {
+			getEveryDayDishInfo();
+		}
 
 	}
 
@@ -171,44 +169,44 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 		everyDishMap.put( "num", Constant.HomeConstant.EVERYDAYDISHCOUNTS );
 		everyDishMap.put( "wsUser", WebServiceConstant.wsUser );
 
-		// TODO Auto-generated method stub
 		Runnable runnable = new Runnable() {
 
 			@Override
 			public void run() {
 
-				// TODO Auto-generated method stub
 				SoapObject soapObject = WebServiceAction.getSoapObject( WebServiceConstant.SERVICE_EVERYDAY_URL, WebServiceConstant.GETPOPULARDISH,
 						everyDishMap, WebServiceConstant.SERVICENAMESPACE );
-				if( soapObject==null ) {
+				if( soapObject == null ) {
 					handler.post( new Runnable() {
-						
+
 						@Override
 						public void run() {
-						CommonMethod.netException( getApplicationContext() );
-						return;
+
+							CommonMethod.netException( getApplicationContext() );
+							return;
 						}
 					} );
-				}else {
-					
-				
-				WSResult wsResult = new WSResult( soapObject );
-				switch( Integer.parseInt( wsResult.getState() ) ) {
-				case 201:
+				} else {
 
-					break;
-				case 202:
-					Message msg = new Message();
-					msg.obj = wsResult.getResult();
-					msg.what = EVERYDAYVIEW;
-					handler.sendMessage( msg );
+					WSResult wsResult = new WSResult( soapObject );
+					switch( Integer.parseInt( wsResult.getState() ) ) {
+					case 201:
 
-					break;
-				default:
-					break;
+						break;
+					case 202:
+						Message msg = new Message();
+						msg.obj = wsResult.getResult();
+						msg.what = EVERYDAYVIEW;
+						handler.sendMessage( msg );
+						TODAY = true;
+
+						break;
+					default:
+						break;
+					}
 				}
 			}
-		}};
+		};
 		ThreadTool threadTool = ThreadTool.getInstance();
 		threadTool.addTask( runnable );
 	}
@@ -219,7 +217,6 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 	 */
 	private void initView() {
 
-		// TODO Auto-generated method stub
 		btn_menu = ( Button )findViewById( R.id.btn_menu );
 		btn_search = ( Button )findViewById( R.id.btn_search );
 		slideHolder = ( SlideHolder )findViewById( R.id.slideHolder );
@@ -245,7 +242,6 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 	@Override
 	public void onClick( View v ) {
 
-		// TODO Auto-generated method stub
 		switch( v.getId() ) {
 		case R.id.btn_menu:
 
@@ -279,6 +275,7 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 			openActivity( WhatToEatUi.class );
 			break;
 		case 2:
+			openActivity( IngredientEnergyUi.class );
 			break;
 		case 3:
 			break;
@@ -291,9 +288,6 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 		}
 
 	}
-
-
-
 
 
 	@Override

@@ -4,7 +4,15 @@
  */
 package com.dishes.model;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.ksoap2.serialization.SoapObject;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 
 /**
  * 
@@ -16,6 +24,8 @@ public class IngredientInfo {
 	private String inId;
 	private String inName;
 	private String inPic; // add by sjy
+	private int height;
+	private int width;
 
 
 	/**
@@ -28,6 +38,27 @@ public class IngredientInfo {
 		this.inId = object.getPropertySafelyAsString( "inId" );
 		this.inName = object.getPropertySafelyAsString( "inName" );
 		this.inPic = object.getPropertySafelyAsString( "inPic" );
+	}
+
+
+	public IngredientInfo( SoapObject object, int RATIO ) {
+
+		this.inId = object.getPropertySafelyAsString( "inId" );
+		this.inName = object.getPropertySafelyAsString( "inName" );
+		this.inPic = object.getPropertySafelyAsString( "inPic" );
+		Options opts = new Options();
+		opts.inJustDecodeBounds = true;
+		try {
+			BitmapFactory.decodeStream( new URL( inPic ).openStream(), null, opts );
+			this.width = opts.outWidth;
+			this.height = opts.outHeight;
+		} catch( MalformedURLException e ) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch( IOException e ) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -67,4 +98,15 @@ public class IngredientInfo {
 		this.inPic = inPic;
 	}
 
+
+	public int getHeight() {
+
+		return height;
+	}
+
+
+	public int getWidth() {
+
+		return width;
+	}
 }

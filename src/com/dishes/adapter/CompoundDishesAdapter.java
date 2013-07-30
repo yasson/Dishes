@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,8 +21,6 @@ import com.dishes.model.DishInfo;
 import com.dishes.ui.R;
 import com.dishes.util.ImageCallback;
 import com.dishes.util.ImageLoader;
-import com.dishes.views.staggeredgridview.StaggeredGridView;
-import com.dishes.views.staggeredgridview.StaggeredGridView.LayoutParams;
 
 /**
  * 

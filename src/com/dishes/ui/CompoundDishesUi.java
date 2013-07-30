@@ -14,25 +14,20 @@ import org.ksoap2.serialization.SoapObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.dishes.AppContext;
 import com.dishes.adapter.CompoundDishesAdapter;
-import com.dishes.common.Constant;
 import com.dishes.model.DishInfo;
 import com.dishes.model.WSResult;
 import com.dishes.ui.base.BaseActivity;
-import com.dishes.util.ThreadTool;
 import com.dishes.util.ImageLoader.ImageLoadTask;
-import com.dishes.views.staggeredgridview.StaggeredGridView;
+import com.dishes.util.ThreadTool;
 import com.dishes.webservice.WebServiceAction;
 import com.dishes.webservice.WebServiceConstant;
 
