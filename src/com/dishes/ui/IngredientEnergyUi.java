@@ -13,8 +13,16 @@ import org.ksoap2.serialization.SoapObject;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.dishes.AppContext;
 import com.dishes.adapter.StaggeredGridViewAdapter;
@@ -33,10 +41,12 @@ import com.dishes.webservice.WebServiceConstant;
  * @author YangSen
  * 
  */
-public class IngredientEnergyUi extends BaseActivity {
+public class IngredientEnergyUi extends BaseActivity implements OnClickListener, OnEditorActionListener {
 
 	private StaggeredGridView sGridView;
 	private List<IngredientInfo> infos;
+	private Button button;
+	private EditText editText;
 
 	private Handler mHandler = new Handler() {
 
@@ -89,6 +99,10 @@ public class IngredientEnergyUi extends BaseActivity {
 	 */
 	private void initView() {
 
+		button = ( Button )findViewById( R.id.btn_searching );
+		button.setOnClickListener( this );
+		editText = ( EditText )findViewById( R.id.et_search );
+		editText.setOnEditorActionListener( this );
 		pr = ( RelativeLayout )findViewById( R.id.pr );
 		sGridView = ( StaggeredGridView )findViewById( R.id.staggeredGridView );
 		sGridView.setVisibility( View.GONE );
@@ -100,10 +114,48 @@ public class IngredientEnergyUi extends BaseActivity {
 			public void onItemClick( StaggeredGridView parent, View view, int position, long id ) {
 
 				Bundle bundle = new Bundle();
-				bundle.putSerializable( "inId", infos.get( position ).getInName() );
+				bundle.putSerializable( "ingreName", infos.get( position ).getInName() );
 				openActivity( IngredientEnergyDetailUi.class, bundle );
 			}
 		} );
+	}
+
+
+	@Override
+	public void onClick( View v ) {
+
+		switch( v.getId() ) {
+		case R.id.btn_searching:
+			String ingreName = editText.getText().toString();
+			if( ingreName != null && !ingreName.equals( "" ) ) {
+				Bundle bundle = new Bundle();
+				bundle.putSerializable( "ingreName", ingreName );
+				openActivity( IngredientEnergyDetailUi.class, bundle );
+			} else {
+				Toast.makeText( getApplicationContext(), "请输入要查看的食材名称", Toast.LENGTH_SHORT ).show();
+			}
+
+			break;
+
+		default:
+			break;
+		}
+	}
+
+
+	@Override
+	public boolean onEditorAction( TextView v, int actionId, KeyEvent event ) {
+
+		switch( actionId ) {
+		case EditorInfo.IME_ACTION_SEARCH:
+			onClick( button );
+
+			break;
+
+		default:
+			break;
+		}
+		return false;
 	}
 
 
