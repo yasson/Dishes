@@ -131,7 +131,7 @@ public class IngredientInterRestrictionUi extends BaseActivity implements OnClic
 			if( ingreName != null && !ingreName.equals( "" ) ) {
 				Bundle bundle = new Bundle();
 				bundle.putSerializable( "ingreName", ingreName );
-				openActivity( IngredientEnergyDetailUi.class, bundle );
+				openActivity( IngredientInterRestrictionDetailUi.class, bundle );
 			} else {
 				Toast.makeText( getApplicationContext(), "请输入要查看的食材名称", Toast.LENGTH_SHORT ).show();
 			}

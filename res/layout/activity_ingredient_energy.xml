@@ -39,9 +39,9 @@
         android:id="@+id/staggeredGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarFadeDuration="1000"
+        android:scrollbarFadeDuration="10"
+        android:scrollbarThumbVertical="@drawable/scrollbar"
         android:scrollbars="vertical"
-        staggered:drawSelectorOnTop="true"
         staggered:numColumns="2" />
 
     <RelativeLayout

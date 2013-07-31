@@ -41,6 +41,8 @@
         android:layout_height="match_parent"
         android:scrollbarFadeDuration="1000"
         android:scrollbars="vertical"
+        
+        android:scrollbarThumbVertical="@drawable/scrollbar"
         staggered:drawSelectorOnTop="true"
         staggered:numColumns="3" />
 

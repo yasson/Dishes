@@ -73,9 +73,10 @@
             android:divider="@null"
             android:fastScrollEnabled="true"
             android:focusable="true"
+            android:scrollbarSize="3dp"
             android:scrollbarStyle="insideOverlay"
             android:scrollbarThumbVertical="@android:color/holo_blue_light" 
-            android:scrollbarTrackVertical="@drawable/scrollbartrackvertical">
+           >
         </ListView>
     </LinearLayout>
 

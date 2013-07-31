@@ -80,7 +80,7 @@ public class IngredientInterRestrictionDetailUi extends BaseActivity implements 
 	protected void onResume() {
 
 		super.onResume();
-		getIngredientEnergyInfo( inName );
+		getIngredientRestrictionInfo( inName );
 		textView.setText( inName );
 	}
 
@@ -88,7 +88,7 @@ public class IngredientInterRestrictionDetailUi extends BaseActivity implements 
 	/**
 	 * 
 	 */
-	private void getIngredientEnergyInfo( final String name ) {
+	private void getIngredientRestrictionInfo( final String name ) {
 
 		new Thread( new Runnable() {
 
@@ -149,7 +149,7 @@ public class IngredientInterRestrictionDetailUi extends BaseActivity implements 
 		case R.id.btn_searching:
 			String ingreName = editText.getText().toString();
 			if( ingreName != null && !ingreName.equals( "" ) ) {
-				getIngredientEnergyInfo( ingreName );
+				getIngredientRestrictionInfo( ingreName );
 			} else {
 				Toast.makeText( getApplicationContext(), "请输入要查看的食材名称", Toast.LENGTH_SHORT ).show();
 			}
