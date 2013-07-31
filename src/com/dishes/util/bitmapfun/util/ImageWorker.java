@@ -358,14 +358,13 @@ public abstract class ImageWorker {
 	 * @param bitmap
 	 */
 	private void setImageBitmap( ImageView imageView, Bitmap bitmap ) {
-		imageView.setLayoutParams( new LinearLayout.LayoutParams( 370, 370*bitmap.getHeight()/bitmap.getWidth() ));
 		if( mFadeInBitmap ) {
 			// Transition drawable with a transparent drwabale and the final
 			// bitmap
 			final TransitionDrawable td = new TransitionDrawable( new Drawable[] { new ColorDrawable( android.R.color.transparent ),
 					new BitmapDrawable( mContext.getResources(), bitmap ) } );
 			// Set background to loading bitmap
-			imageView.setBackgroundDrawable( new BitmapDrawable( mContext.getResources(), mLoadingBitmap ) );
+			imageView.setImageBitmap( mLoadingBitmap );
 
 			imageView.setImageDrawable( td );
 			td.startTransition( FADE_IN_TIME );

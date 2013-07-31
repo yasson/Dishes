@@ -61,6 +61,14 @@
             android:name=".IngredientEnergyDetailUi"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" >
         </activity>
+           <activity
+            android:name=".IngredientInterRestrictionUi"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+              <activity
+            android:name=".IngredientInterRestrictionDetailUi"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
     </application>
 
 </manifest>

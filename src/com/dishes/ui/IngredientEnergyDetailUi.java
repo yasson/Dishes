@@ -54,6 +54,18 @@ public class IngredientEnergyDetailUi extends BaseActivity implements OnClickLis
 
 		public void handleMessage( android.os.Message msg ) {
 
+			getIngredientPic();
+			textView.setText( inName );
+			IngreEnergyAdapter energyAdapter = new IngreEnergyAdapter( getApplicationContext(), info );
+			listView.setAdapter( energyAdapter );
+
+		}
+
+		/**
+		 * 
+		 */
+		private void getIngredientPic() {
+
 			new Thread( new Runnable() {
 
 				@Override
@@ -78,10 +90,6 @@ public class IngredientEnergyDetailUi extends BaseActivity implements OnClickLis
 					}
 				}
 			} ).start();
-			textView.setText( inName );
-			IngreEnergyAdapter energyAdapter = new IngreEnergyAdapter( getApplicationContext(), info );
-			listView.setAdapter( energyAdapter );
-
 		};
 	};
 

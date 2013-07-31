@@ -278,6 +278,7 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 			openActivity( IngredientEnergyUi.class );
 			break;
 		case 3:
+			openActivity( IngredientInterRestrictionUi.class );
 			break;
 		case 4:
 			openActivity( CategoryDishesUi.class );

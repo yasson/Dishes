@@ -139,4 +139,8 @@ public class WebServiceConstant {
 	public static final String SERVICE_URL_HOTDISHESWS =Server_IP + "/HotDishesAndIngredientsWs/HotDishesAndIngredientsWsImpl?wsdl";
 	public static final String GETHOTINGREDIENTS = "getHotIngredients";
 
+	
+	//查询相克食材 FoodRestrictionActivity 362行 getRestrictionInfo(String inName)调用
+	public static final String SERVICE_URL_FOODINCOMWS = "http://60.209.248.227:8080/FoodIncomWs/FoodIncomWsImpl?wsdl";
+	public static final String GETINCOMINGREDIENTS = "getIncomIngredients";
 }
