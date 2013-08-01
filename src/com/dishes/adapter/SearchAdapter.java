@@ -129,7 +129,7 @@ public class SearchAdapter extends BaseAdapter {
 			@Override
 			public void imageLoadFailed() {
 
-				viewHolder.imageView.setImageResource( R.drawable.loadingpic );
+				viewHolder.imageView.setImageResource( R.drawable.empty_photo );
 
 			}
 

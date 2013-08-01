@@ -148,8 +148,7 @@ public class View1 extends BaseView implements OnClickListener {
 		btn_search = ( Button )view.findViewById( R.id.btn_search );
 		btn_search.setOnClickListener( this );
 		btn_menu.setOnClickListener( this );
-		ll_everyday = ( LinearLayout )view.findViewById( R.id.ll_everyday );
-		hScrollView = ( HorizontalScrollView )view.findViewById( R.id.hs_everyday );
+		ll_everyday = ( LinearLayout )view.findViewById( R.id.vp_everyday );
 		lv_home = ( ListView )view.findViewById( R.id.lv_home );
 		adapter = new HomeListViewAdapter( context );
 		lv_home.setAdapter( adapter );

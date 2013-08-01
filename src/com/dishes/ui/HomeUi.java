@@ -3,17 +3,17 @@
  */
 package com.dishes.ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.LayoutInflater;
+import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,24 +21,21 @@ import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
+import com.dishes.adapter.HomeEveryDayDishAdapter;
+import com.dishes.adapter.HomeEveryDishAdapter;
 import com.dishes.adapter.HomeListViewAdapter;
 import com.dishes.common.CommonMethod;
 import com.dishes.common.Constant;
 import com.dishes.model.DishInfo;
 import com.dishes.model.WSResult;
 import com.dishes.ui.base.BaseActivity;
-import com.dishes.util.ImageCallback;
-import com.dishes.util.ImageLoader;
 import com.dishes.util.SlideHolder;
+import com.dishes.util.SlideHolder.OnSlideListener;
 import com.dishes.util.ThreadTool;
-import com.dishes.util.bitmapfun.util.ImageCache;
+import com.dishes.views.flipview.FlipViewController;
+//import com.dishes.views.flipview.FlipViewController;
 import com.dishes.webservice.WebServiceAction;
 import com.dishes.webservice.WebServiceConstant;
 
@@ -46,77 +43,33 @@ import com.dishes.webservice.WebServiceConstant;
  * @author SenYang
  * 
  */
-public class HomeUi extends BaseActivity implements OnClickListener, OnItemClickListener, OnTouchListener {
+public class HomeUi extends BaseActivity implements OnClickListener,
+		OnItemClickListener, OnTouchListener {
 
-	private ListView lv_home;
 	private HomeListViewAdapter adapter;
 	private Button btn_menu, btn_search;
-	private HorizontalScrollView hScrollView;
-	private LinearLayout ll_everyday;
+	private ViewPager vp_everyday;
 	private final int EVERYDAYVIEW = 1;
 	private boolean TODAY;
+	private FlipViewController flipView;
 	private Handler handler = new Handler() {
 
-		@SuppressWarnings( "unchecked" )
-		public void handleMessage( android.os.Message msg ) {
+		@SuppressWarnings("unchecked")
+		public void handleMessage(android.os.Message msg) {
 
-			switch( msg.what ) {
+			switch (msg.what) {
 			case EVERYDAYVIEW:
-				for( Object object : ( List<Object> )msg.obj ) {
-					final DishInfo dishInfo = new DishInfo( ( SoapObject )object );
-					View view = LayoutInflater.from( getApplicationContext() ).inflate( R.layout.adapter_homeeveryday, null );
-					final ImageView imageView = ( ImageView )view.findViewById( R.id.iv_everydish );
-					imageView.setOnClickListener( new OnClickListener() {
-
-						@Override
-						public void onClick( View v ) {
-
-							Intent intent = new Intent();
-							intent.setClass( getApplicationContext(), HowToCook.class );
-							intent.putExtra( "dishId", dishInfo.getDishId() );
-							startActivity( intent );
-							overridePendingTransition( R.anim.slide_right_in, R.anim.slide_left_out );
-						}
-					} );
-					TextView tv_name = ( TextView )view.findViewById( R.id.tv_everydaydishname );
-					TextView tv_desc = ( TextView )view.findViewById( R.id.tv_everydaydesc );
-					final ProgressBar pr = ( ProgressBar )view.findViewById( R.id.pro );
-					tv_name.setText( dishInfo.getDishName() );
-					tv_desc.setText( dishInfo.getDishDesc() );
-					ll_everyday.addView( view );
-					ImageLoader imageLoader = new ImageLoader();
-					imageLoader.loadImage( getApplicationContext(), imageView, dishInfo.getDishPic(), dishInfo.getDishName(),
-							Constant.HomeConstant.IMAGE_LENGTH, new ImageCallback() {
-
-								@Override
-								public void imageLoadOver() {
-
-									pr.setVisibility( View.GONE );
-								}
-
-
-								@Override
-								public void imageLoadFailed() {
-
-								}
-
-
-								@Override
-								public void imageLoadBefore() {
-
-									pr.setVisibility( View.VISIBLE );
-								}
-
-
-								@Override
-								public void imageLoading( Bitmap bitmap, String url, float ratio, int width, int height ) {
-
-									imageView.setImageBitmap( bitmap );
-
-								}
-
-							} );
+				List<DishInfo> infos = new ArrayList<DishInfo>();
+				for (Object object : (List<Object>) msg.obj) {
+					final DishInfo dishInfo = new DishInfo((SoapObject) object);
+					infos.add(dishInfo);
 				}
+				// HomeEveryDayDishAdapter adapter = new
+				// HomeEveryDayDishAdapter( getApplicationContext(), infos );
+				// vp_everyday.setAdapter( adapter );
+				HomeEveryDishAdapter adapter = new HomeEveryDishAdapter(
+						getApplicationContext(), infos, flipView);
+				flipView.setAdapter(adapter);
 				break;
 
 			default:
@@ -126,7 +79,7 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 		};
 	};
 	private SlideHolder slideHolder;
-
+	private ListView lv_home;
 
 	/*
 	 * (non-Javadoc)
@@ -134,14 +87,13 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override
-	protected void onCreate( Bundle savedInstanceState ) {
+	protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate( savedInstanceState );
-		setContentView( R.layout.activity_home );
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_home);
 		initView();
 		System.gc();
 	}
-
 
 	/*
 	 * (non-Javadoc)
@@ -152,12 +104,11 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 	protected void onResume() {
 
 		super.onResume();
-		if( !TODAY ) {
+		if (!TODAY) {
 			getEveryDayDishInfo();
 		}
 
 	}
-
 
 	/**
 	 * 
@@ -165,31 +116,33 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 	private void getEveryDayDishInfo() {
 
 		final HashMap<String, Object> everyDishMap = new HashMap<String, Object>();
-		everyDishMap.put( "diseaseStr", "" );
-		everyDishMap.put( "num", Constant.HomeConstant.EVERYDAYDISHCOUNTS );
-		everyDishMap.put( "wsUser", WebServiceConstant.wsUser );
+		everyDishMap.put("diseaseStr", "");
+		everyDishMap.put("num", Constant.HomeConstant.EVERYDAYDISHCOUNTS);
+		everyDishMap.put("wsUser", WebServiceConstant.wsUser);
 
 		Runnable runnable = new Runnable() {
 
 			@Override
 			public void run() {
 
-				SoapObject soapObject = WebServiceAction.getSoapObject( WebServiceConstant.SERVICE_EVERYDAY_URL, WebServiceConstant.GETPOPULARDISH,
-						everyDishMap, WebServiceConstant.SERVICENAMESPACE );
-				if( soapObject == null ) {
-					handler.post( new Runnable() {
+				SoapObject soapObject = WebServiceAction.getSoapObject(
+						WebServiceConstant.SERVICE_EVERYDAY_URL,
+						WebServiceConstant.GETPOPULARDISH, everyDishMap,
+						WebServiceConstant.SERVICENAMESPACE);
+				if (soapObject == null) {
+					handler.post(new Runnable() {
 
 						@Override
 						public void run() {
 
-							CommonMethod.netException( getApplicationContext() );
+							CommonMethod.netException(getApplicationContext());
 							return;
 						}
-					} );
+					});
 				} else {
 
-					WSResult wsResult = new WSResult( soapObject );
-					switch( Integer.parseInt( wsResult.getState() ) ) {
+					WSResult wsResult = new WSResult(soapObject);
+					switch (Integer.parseInt(wsResult.getState())) {
 					case 201:
 
 						break;
@@ -197,7 +150,7 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 						Message msg = new Message();
 						msg.obj = wsResult.getResult();
 						msg.what = EVERYDAYVIEW;
-						handler.sendMessage( msg );
+						handler.sendMessage(msg);
 						TODAY = true;
 
 						break;
@@ -208,31 +161,29 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 			}
 		};
 		ThreadTool threadTool = ThreadTool.getInstance();
-		threadTool.addTask( runnable );
+		threadTool.addTask(runnable);
 	}
-
 
 	/**
 	 * 
 	 */
 	private void initView() {
-
-		btn_menu = ( Button )findViewById( R.id.btn_menu );
-		btn_search = ( Button )findViewById( R.id.btn_search );
-		slideHolder = ( SlideHolder )findViewById( R.id.slideHolder );
-		hScrollView = ( HorizontalScrollView )findViewById( R.id.hs_everyday );
-		hScrollView.setOnTouchListener( this );
-		btn_search.setOnClickListener( this );
-		btn_menu.setOnClickListener( this );
-		ll_everyday = ( LinearLayout )findViewById( R.id.ll_everyday );
-		hScrollView = ( HorizontalScrollView )findViewById( R.id.hs_everyday );
-		lv_home = ( ListView )findViewById( R.id.lv_home );
-		adapter = new HomeListViewAdapter( getApplicationContext() );
-		lv_home.setAdapter( adapter );
-		lv_home.setOnItemClickListener( this );
+		flipView = (FlipViewController) findViewById(R.id.flipview);
+		btn_menu = (Button) findViewById(R.id.btn_menu);
+		btn_search = (Button) findViewById(R.id.btn_search);
+		slideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+		// hScrollView = ( ScrollView )findViewById( R.id.hs_everyday );
+		// hScrollView.setOnTouchListener( this );
+		btn_search.setOnClickListener(this);
+		btn_menu.setOnClickListener(this);
+		vp_everyday = (ViewPager) findViewById(R.id.vp_everyday);
+		vp_everyday.setOnTouchListener(this);
+		lv_home = (ListView) findViewById(R.id.lv_home);
+		adapter = new HomeListViewAdapter(getApplicationContext());
+		lv_home.setAdapter(adapter);
+		lv_home.setOnItemClickListener(this);
 
 	}
-
 
 	/*
 	 * (non-Javadoc)
@@ -240,9 +191,9 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
 	 */
 	@Override
-	public void onClick( View v ) {
+	public void onClick(View v) {
 
-		switch( v.getId() ) {
+		switch (v.getId()) {
 		case R.id.btn_menu:
 
 			slideHolder.toggle();
@@ -250,38 +201,39 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 			break;
 		case R.id.btn_search:
 			Intent intent = new Intent();
-			intent.setClass( getApplicationContext(), SearchUi.class );
-			startActivity( intent );
-			overridePendingTransition( R.anim.slide_top_in, R.anim.slide_out_donothing );
+			intent.setClass(getApplicationContext(), SearchUi.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.slide_top_in,
+					R.anim.slide_out_donothing);
 			break;
 
 		default:
+
 			break;
 		}
 
 	}
 
-
 	@Override
-	public void onItemClick( AdapterView<?> arg0, View arg1, int arg2, long arg3 ) {
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
-		switch( arg2 ) {
+		switch (arg2) {
 
 		case 0:
-			openActivity( EachdayMealsUi.class );
+			openActivity(EachdayMealsUi.class);
 
 			break;
 		case 1:
-			openActivity( WhatToEatUi.class );
+			openActivity(WhatToEatUi.class);
 			break;
 		case 2:
-			openActivity( IngredientEnergyUi.class );
+			openActivity(IngredientEnergyUi.class);
 			break;
 		case 3:
-			openActivity( IngredientInterRestrictionUi.class );
+			openActivity(IngredientInterRestrictionUi.class);
 			break;
 		case 4:
-			openActivity( CategoryDishesUi.class );
+			openActivity(CategoryDishesUi.class);
 			break;
 
 		default:
@@ -289,40 +241,11 @@ public class HomeUi extends BaseActivity implements OnClickListener, OnItemClick
 		}
 
 	}
-
 
 	@Override
-	public boolean onTouch( View v, MotionEvent event ) {
-
-		switch( v.getId() ) {
-		case R.id.hs_everyday:
-
-			switch( event.getAction() ) {
-
-			case MotionEvent.ACTION_DOWN:
-
-				slideHolder.setEnabled( false );
-				return super.onTouchEvent( event );
-
-			case MotionEvent.ACTION_MOVE:
-				if( v.getScrollX() != 0 ) {
-					slideHolder.setEnabled( false );
-				} else {
-					slideHolder.setEnabled( true );
-				}
-				return super.onTouchEvent( event );
-			case MotionEvent.ACTION_UP:
-				slideHolder.setEnabled( true );
-				return super.onTouchEvent( event );
-			default:
-				break;
-			}
-
-			break;
-
-		default:
-			break;
-		}
-		return super.onTouchEvent( event );
+	public boolean onTouch(View v, MotionEvent event) {
+		// TODO Auto-generated method stub
+		return false;
 	}
+
 }
