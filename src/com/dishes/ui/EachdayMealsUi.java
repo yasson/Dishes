@@ -93,7 +93,6 @@ public class EachdayMealsUi extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
 
-		// TODO Auto-generated method stub
 		super.onCreate( savedInstanceState );
 		System.gc();
 		setContentView( R.layout.activity_eachdaymeals );
@@ -117,7 +116,6 @@ public class EachdayMealsUi extends BaseActivity implements OnClickListener {
 	 */
 	private void getUserInfos() {
 
-		// TODO Auto-generated method stub
 		SharedPreferences sp = getSharedPreferences( Constant.PACKAGE_NAME, 0 );
 		String userId = sp.getString( "userId", "0" );
 		String userNum = sp.getString( "userNum", "3" );
@@ -301,7 +299,6 @@ public class EachdayMealsUi extends BaseActivity implements OnClickListener {
 		public void onPageSelected( int arg0 ) {
 
 			Animation animation = null;
-			int n;
 			switch( arg0 ) {
 			case 0:
 				if( currentPage == 1 ) {

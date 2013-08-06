@@ -4,15 +4,15 @@
  */
 package com.dishes.adapter;
 
-import com.dishes.model.IngredientNutritionInfo;
-import com.dishes.ui.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.dishes.model.IngredientNutritionInfo;
+import com.dishes.ui.R;
 
 /**
  * 
@@ -43,7 +43,7 @@ public class IngreEnergyAdapter extends BaseAdapter {
 
 		this.context = applicationContext;
 		this.info = info;
-		this.layoutInflater = LayoutInflater.from( applicationContext );
+		this.layoutInflater = LayoutInflater.from( context );
 	}
 
 

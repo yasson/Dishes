@@ -4,21 +4,17 @@
  */
 package com.dishes.views;
 
-import org.kobjects.util.Util;
-
-import com.dishes.common.CommonMethod;
-
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.dishes.common.CommonMethod;
 
 /**
  * 

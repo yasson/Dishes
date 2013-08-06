@@ -17,13 +17,14 @@ limitations under the License.
 
 package com.dishes.views.flipview;
 
+import static com.dishes.views.flipview.FlipRenderer.checkError;
+
 import java.lang.ref.WeakReference;
 
 import javax.microedition.khronos.opengles.GL10;
 
 import android.graphics.Bitmap;
 import android.view.View;
-import static com.dishes.views.flipview.FlipRenderer.checkError;
 
 public class ViewDualCards {
 

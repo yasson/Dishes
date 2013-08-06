@@ -3,7 +3,6 @@
  */
 package com.dishes.util;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import android.graphics.Bitmap;

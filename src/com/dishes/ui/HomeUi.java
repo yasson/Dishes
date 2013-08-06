@@ -23,7 +23,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.dishes.adapter.HomeEveryDayDishAdapter;
 import com.dishes.adapter.HomeEveryDishAdapter;
 import com.dishes.adapter.HomeListViewAdapter;
 import com.dishes.common.CommonMethod;
@@ -32,10 +31,8 @@ import com.dishes.model.DishInfo;
 import com.dishes.model.WSResult;
 import com.dishes.ui.base.BaseActivity;
 import com.dishes.util.SlideHolder;
-import com.dishes.util.SlideHolder.OnSlideListener;
 import com.dishes.util.ThreadTool;
 import com.dishes.views.flipview.FlipViewController;
-//import com.dishes.views.flipview.FlipViewController;
 import com.dishes.webservice.WebServiceAction;
 import com.dishes.webservice.WebServiceConstant;
 
@@ -80,6 +77,8 @@ public class HomeUi extends BaseActivity implements OnClickListener,
 	};
 	private SlideHolder slideHolder;
 	private ListView lv_home;
+	private Button btn_settings;
+	private Button btn_favor;
 
 	/*
 	 * (non-Javadoc)
@@ -171,6 +170,10 @@ public class HomeUi extends BaseActivity implements OnClickListener,
 		flipView = (FlipViewController) findViewById(R.id.flipview);
 		btn_menu = (Button) findViewById(R.id.btn_menu);
 		btn_search = (Button) findViewById(R.id.btn_search);
+		btn_favor = (Button) findViewById(R.id.btn_favor);
+		btn_favor.setOnClickListener(this);
+		btn_settings = (Button) findViewById(R.id.btn_settings);
+		btn_settings.setOnClickListener(this);
 		slideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 		// hScrollView = ( ScrollView )findViewById( R.id.hs_everyday );
 		// hScrollView.setOnTouchListener( this );
@@ -205,6 +208,9 @@ public class HomeUi extends BaseActivity implements OnClickListener,
 			startActivity(intent);
 			overridePendingTransition(R.anim.slide_top_in,
 					R.anim.slide_out_donothing);
+			break;
+		case R.id.btn_favor:
+			openActivity(MyfavouriteDishesUi.class);
 			break;
 
 		default:

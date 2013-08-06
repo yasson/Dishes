@@ -5,21 +5,22 @@
     android:layout_height="fill_parent" >
 
     <ScrollView
-        android:layout_width="200dp"
+        android:layout_width="260dp"
         android:layout_height="fill_parent"
         android:background="@drawable/backg" >
 
         <LinearLayout
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <Button
+                android:id="@+id/btn_favor"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/menu_settings" />
-
-            <Button
+                android:text="@string/myfavor" />
+            <Button
+                android:id="@+id/btn_settings"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_settings" />
@@ -51,67 +52,66 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_everyday"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:visibility="gone" />
+
+        <com.dishes.views.flipview.FlipViewController
+            android:id="@+id/flipview"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/menuback" >
-
-            <Button
-                android:id="@+id/btn_menu"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/menu_more" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="38dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="60dp"
-                android:background="@drawable/separater" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="38dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="60dp"
-                android:background="@drawable/separater" />
-
-            <Button
-                android:id="@+id/btn_search"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/search" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp_everyday"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" 
-                android:visibility="gone"
-                />
-
-         <com.dishes.views.flipview.FlipViewController
-                android:id="@+id/flipview"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" />
+            android:layout_height="match_parent" >
 
             <ListView
                 android:id="@+id/lv_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical" />
-        </LinearLayout>
+                android:layout_marginBottom="50dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/menuback" >
+
+                <Button
+                    android:id="@+id/btn_menu"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/menu_more" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="38dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="60dp"
+                    android:background="@drawable/separater" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="60dp"
+                    android:background="@drawable/separater" />
+
+                <Button
+                    android:id="@+id/btn_search"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/search" />
+            </RelativeLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 </com.dishes.util.SlideHolder>

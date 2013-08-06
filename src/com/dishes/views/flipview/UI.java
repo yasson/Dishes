@@ -16,14 +16,14 @@ limitations under the License.
 
 package com.dishes.views.flipview;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
-
-import java.util.concurrent.Callable;
-import java.util.concurrent.FutureTask;
 
 public class UI {
 

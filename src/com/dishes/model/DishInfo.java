@@ -24,7 +24,11 @@ public class DishInfo implements Serializable{
 	private String dishType;
 
 
-	public DishInfo() {
+	public DishInfo(String dishId,String dishName,String dishPic,String dishDesc) {
+		this.dishId=dishId;
+		this.dishName=dishName;
+		this.dishPic=dishPic;
+		this.dishDesc=dishDesc;
 
 	}
 

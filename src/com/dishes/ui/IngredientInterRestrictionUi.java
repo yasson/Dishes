@@ -41,7 +41,8 @@ import com.dishes.webservice.WebServiceConstant;
  * @author YangSen
  * 
  */
-public class IngredientInterRestrictionUi extends BaseActivity implements OnClickListener, OnEditorActionListener {
+public class IngredientInterRestrictionUi extends BaseActivity implements
+		OnClickListener, OnEditorActionListener {
 
 	private StaggeredGridView sGridView;
 	private List<IngredientInfo> infos;
@@ -50,15 +51,16 @@ public class IngredientInterRestrictionUi extends BaseActivity implements OnClic
 
 	private Handler mHandler = new Handler() {
 
-		public void handleMessage( android.os.Message msg ) {
+		public void handleMessage(android.os.Message msg) {
 
-			switch( msg.what ) {
+			switch (msg.what) {
 			case 1:
 
-				StaggeredGridViewAdapter sAdapter = new StaggeredGridViewAdapter( getApplicationContext(), infos, sGridView );
-				sGridView.setAdapter( sAdapter );
-				pr.setVisibility( View.GONE );
-				sGridView.setVisibility( View.VISIBLE );
+				StaggeredGridViewAdapter sAdapter = new StaggeredGridViewAdapter(
+						getApplicationContext(), infos, sGridView);
+				sGridView.setAdapter(sAdapter);
+				pr.setVisibility(View.GONE);
+				sGridView.setVisibility(View.VISIBLE);
 				sAdapter.notifyDataSetChanged();
 				break;
 
@@ -70,70 +72,69 @@ public class IngredientInterRestrictionUi extends BaseActivity implements OnClic
 	};
 	private RelativeLayout pr;
 
-
 	@Override
-	protected void onCreate( Bundle savedInstanceState ) {
+	protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate( savedInstanceState );
+		super.onCreate(savedInstanceState);
 
-		setContentView( R.layout.activity_ingredient_interrestriction);
+		setContentView(R.layout.activity_ingredient_interrestriction);
 		initView();
 	}
-
 
 	@Override
 	protected void onResume() {
 
 		super.onResume();
-		if( AppContext.list_ingredient_energy == null ) {
+		if (AppContext.list_ingredient_energy.size() == 0) {
 			getIngredients();
-		} else if( sGridView.getAdapter() == null ) {
+		} else if (sGridView.getAdapter() == null) {
 			infos = AppContext.list_ingredient_energy;
-			mHandler.sendEmptyMessage( 1 );
+			mHandler.sendEmptyMessage(1);
 		}
 	}
-
 
 	/**
 	 * 
 	 */
 	private void initView() {
 
-		button = ( Button )findViewById( R.id.btn_searching );
-		button.setOnClickListener( this );
-		editText = ( EditText )findViewById( R.id.et_search );
-		editText.setOnEditorActionListener( this );
-		pr = ( RelativeLayout )findViewById( R.id.pr );
-		sGridView = ( StaggeredGridView )findViewById( R.id.staggeredGridView );
-		sGridView.setVisibility( View.GONE );
-		sGridView.setItemMargin( 1, 1, 1, 1 ); // set the GridView margin
-		sGridView.setFastScrollEnabled( true );
-		sGridView.setOnItemClickListener( new OnItemClickListener() {
+		button = (Button) findViewById(R.id.btn_searching);
+		button.setOnClickListener(this);
+		editText = (EditText) findViewById(R.id.et_search);
+		editText.setOnEditorActionListener(this);
+		pr = (RelativeLayout) findViewById(R.id.pr);
+		sGridView = (StaggeredGridView) findViewById(R.id.staggeredGridView);
+		sGridView.setVisibility(View.GONE);
+		sGridView.setItemMargin(1, 1, 1, 1); // set the GridView margin
+		sGridView.setFastScrollEnabled(true);
+		sGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick( StaggeredGridView parent, View view, int position, long id ) {
+			public void onItemClick(StaggeredGridView parent, View view,
+					int position, long id) {
 
 				Bundle bundle = new Bundle();
-				bundle.putSerializable( "ingreName", infos.get( position ).getInName() );
-				bundle.putSerializable( "pic", infos.get( position ).getInPic() );
-				openActivity( IngredientInterRestrictionDetailUi.class, bundle );
+				bundle.putSerializable("ingreName", infos.get(position)
+						.getInName());
+				bundle.putSerializable("pic", infos.get(position).getInPic());
+				openActivity(IngredientInterRestrictionDetailUi.class, bundle);
 			}
-		} );
+		});
 	}
 
-
 	@Override
-	public void onClick( View v ) {
+	public void onClick(View v) {
 
-		switch( v.getId() ) {
+		switch (v.getId()) {
 		case R.id.btn_searching:
 			String ingreName = editText.getText().toString();
-			if( ingreName != null && !ingreName.equals( "" ) ) {
+			if (ingreName != null && !ingreName.equals("")) {
 				Bundle bundle = new Bundle();
-				bundle.putSerializable( "ingreName", ingreName );
-				openActivity( IngredientInterRestrictionDetailUi.class, bundle );
+				bundle.putSerializable("ingreName", ingreName);
+				openActivity(IngredientInterRestrictionDetailUi.class, bundle);
 			} else {
-				Toast.makeText( getApplicationContext(), "请输入要查看的食材名称", Toast.LENGTH_SHORT ).show();
+				Toast.makeText(getApplicationContext(), "请输入要查看的食材名称",
+						Toast.LENGTH_SHORT).show();
 			}
 
 			break;
@@ -143,13 +144,12 @@ public class IngredientInterRestrictionUi extends BaseActivity implements OnClic
 		}
 	}
 
-
 	@Override
-	public boolean onEditorAction( TextView v, int actionId, KeyEvent event ) {
+	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
-		switch( actionId ) {
+		switch (actionId) {
 		case EditorInfo.IME_ACTION_SEARCH:
-			onClick( button );
+			onClick(button);
 
 			break;
 
@@ -159,38 +159,40 @@ public class IngredientInterRestrictionUi extends BaseActivity implements OnClic
 		return false;
 	}
 
-
 	/**
-	 * 
+	 * 获取食材列表
 	 */
 	private void getIngredients() {
 
-		new Thread( new Runnable() {
+		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 
 				infos = new ArrayList<IngredientInfo>();
 				Map<String, Object> hashmap = new HashMap<String, Object>();
-				hashmap.put( "count", Constant.Ingredient.HOTCOUNT );
-				hashmap.put( "wsUser", WebServiceConstant.wsUser );
-				SoapObject comIngredients = WebServiceAction.getSoapObject( WebServiceConstant.SERVICE_URL_HOTDISHESWS, WebServiceConstant.GETHOTINGREDIENTS,
-						hashmap, WebServiceConstant.SERVICENAMESPACE );
-				if( comIngredients != null ) {
-					WSResult result = new WSResult( comIngredients );
-					for( int i = 0; i < result.getResult().size(); i++ ) {
-						IngredientInfo info = new IngredientInfo( ( SoapObject )result.getResult().get( i ), 1 );
-						infos.add( info );
+				hashmap.put("count", Constant.Ingredient.HOTCOUNT);
+				hashmap.put("wsUser", WebServiceConstant.wsUser);
+				SoapObject comIngredients = WebServiceAction.getSoapObject(
+						WebServiceConstant.SERVICE_URL_HOTDISHESWS,
+						WebServiceConstant.GETHOTINGREDIENTS, hashmap,
+						WebServiceConstant.SERVICENAMESPACE);
+				if (comIngredients != null) {
+					WSResult result = new WSResult(comIngredients);
+					for (int i = 0; i < result.getResult().size(); i++) {
+						IngredientInfo info = new IngredientInfo(
+								(SoapObject) result.getResult().get(i), 1);
+						infos.add(info);
 					}
 					AppContext.list_ingredient_energy = infos;
-					mHandler.sendEmptyMessage( 1 );
+					mHandler.sendEmptyMessage(1);
 
 				} else {
-					CommonMethod.netException( getApplicationContext() );
+					CommonMethod.netException(getApplicationContext());
 				}
 
 			}
-		} ).start();
+		}).start();
 
 	}
 

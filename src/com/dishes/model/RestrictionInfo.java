@@ -6,7 +6,6 @@ public class RestrictionInfo {
 
 	private String inName;
 	private String desc;
-	private String result;
 
 
 	/**

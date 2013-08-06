@@ -7,7 +7,6 @@ package com.dishes.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.dishes.ui.base.BaseActivity;
 import com.dishes.views.HomeMenuView;
@@ -25,7 +24,7 @@ public class Home extends BaseActivity implements OnIntent {
 	private SlidingMenuView slidingMenuView;
 	private HomeMenuView homeMenuView;
 	public Home home;
-	private View view;
+//	private View view;
 
 
 	@Override

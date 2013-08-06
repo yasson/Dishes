@@ -6,25 +6,24 @@ package com.dishes.adapter;
 
 import java.util.List;
 
-import com.dishes.model.DishInfo;
-import com.dishes.ui.HowToCook;
-import com.dishes.ui.R;
-import com.dishes.util.ImageCallback;
-import com.dishes.util.ImageLoader;
-import com.dishes.util.bitmapfun.util.ImageFetcher;
-import com.dishes.views.flipview.FlipViewController;
-import com.dishes.views.flipview.UI;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.dishes.model.DishInfo;
+import com.dishes.ui.HowToCook;
+import com.dishes.ui.R;
+import com.dishes.util.ImageCallback;
+import com.dishes.util.ImageLoader;
+import com.dishes.views.flipview.FlipViewController;
+import com.dishes.views.flipview.UI;
 
 /**
  * 
@@ -33,11 +32,9 @@ import android.widget.TextView;
  */
 public class HomeEveryDishAdapter extends BaseAdapter {
 
-	private ImageFetcher imageFetcher;
 	private LayoutInflater layoutinflater;
 	private List<DishInfo> infos;
 	private Context context;
-	private FlipViewController flipView;
 
 
 	/**
@@ -49,9 +46,7 @@ public class HomeEveryDishAdapter extends BaseAdapter {
 
 		this.context = applicationContext;
 		this.infos = infos;
-		this.flipView=flipView;
 		this.layoutinflater = LayoutInflater.from( applicationContext );
-		imageFetcher = new ImageFetcher( applicationContext, 300 );
 	}
 
 

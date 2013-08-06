@@ -50,7 +50,7 @@ public class CompoundDishesUi extends BaseActivity implements OnScrollListener,O
 		};
 	};
 	private int firstVisibleItem;
-	private int visibleItemCount;
+//	private int visibleItemCount;
 	private int lastItem;
 	private boolean REMOVE;
 	private CompoundDishesAdapter adapter;
@@ -136,7 +136,7 @@ public class CompoundDishesUi extends BaseActivity implements OnScrollListener,O
 	public void onScroll( AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount ) {
 
 		this.firstVisibleItem = firstVisibleItem;
-		this.visibleItemCount = visibleItemCount;
+//		this.visibleItemCount = visibleItemCount;
 		lastItem = firstVisibleItem + visibleItemCount;
 
 	}

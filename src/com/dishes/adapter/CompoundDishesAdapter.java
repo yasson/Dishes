@@ -33,7 +33,6 @@ public class CompoundDishesAdapter extends BaseAdapter {
 
 		private ImageView iView;
 		private TextView tViewName;
-		private TextView tViewDesc;
 	}
 
 

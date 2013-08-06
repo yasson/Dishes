@@ -9,12 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.dishes.model.IngredientInfo;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+
+import com.dishes.model.DishInfo;
+import com.dishes.model.IngredientInfo;
 
 /**
  * 
@@ -32,13 +33,12 @@ public class AppContext extends Application {
 	public static int i=0;
 	public static List<IngredientInfo> list_ingredient_Ids = new ArrayList<IngredientInfo>();
 	public static boolean IF_LOAD=true;
-	public static List<IngredientInfo> list_ingredient_energy;
-	private Context context;
+	public static List<IngredientInfo> list_ingredient_energy=new ArrayList<IngredientInfo>();
+	public static List<DishInfo> favorlist=new ArrayList<DishInfo>();
 
 
 	public AppContext( Context context ) {
 
-		this.context = context;
 	}
 
 

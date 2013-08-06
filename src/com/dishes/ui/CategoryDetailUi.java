@@ -10,18 +10,6 @@ import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;
 
-import com.dishes.adapter.SearchAdapter;
-import com.dishes.common.Constant;
-import com.dishes.interfaces.startUi;
-import com.dishes.model.DishInfo;
-import com.dishes.model.WSResult;
-import com.dishes.ui.base.BaseActivity;
-import com.dishes.util.ThreadTool;
-import com.dishes.util.ImageLoader.ImageLoadTask;
-import com.dishes.webservice.WebServiceAction;
-import com.dishes.webservice.WebServiceConstant;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +23,17 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.dishes.adapter.SearchAdapter;
+import com.dishes.common.Constant;
+import com.dishes.interfaces.startUi;
+import com.dishes.model.DishInfo;
+import com.dishes.model.WSResult;
+import com.dishes.ui.base.BaseActivity;
+import com.dishes.util.ImageLoader.ImageLoadTask;
+import com.dishes.util.ThreadTool;
+import com.dishes.webservice.WebServiceAction;
+import com.dishes.webservice.WebServiceConstant;
 
 /**
  * 
@@ -50,7 +49,7 @@ public class CategoryDetailUi extends BaseActivity implements startUi, OnScrollL
 	private static final int SHOWRESULT = 1;
 	private static final int ADDMORE = 2;
 	private SearchAdapter adapter;
-	private List<SoapObject> lists;
+//	private List<SoapObject> lists;
 	private List<SoapObject> listA;
 	// private int startP = 0;
 	// private int countP = 10;
@@ -89,7 +88,7 @@ public class CategoryDetailUi extends BaseActivity implements startUi, OnScrollL
 	private View view;
 	private ProgressBar pro_loading;
 	private int lastVisibleItem;
-	private int count;
+//	private int count;
 	private boolean REMOVE;
 	private int firstVisibleItem;
 
@@ -182,7 +181,7 @@ public class CategoryDetailUi extends BaseActivity implements startUi, OnScrollL
 	private void initView() {
 
 		listA = new ArrayList<SoapObject>();
-		lists = new ArrayList<SoapObject>();
+//		lists = new ArrayList<SoapObject>();
 		Intent intent = getIntent();
 		title = intent.getIntExtra( "categoryType", 0 );
 		lv_dishes = ( ListView )findViewById( R.id.lv_dish );

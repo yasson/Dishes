@@ -6,7 +6,6 @@ package com.dishes.adapter;
 
 import java.util.List;
 
-import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +27,6 @@ import com.dishes.views.stageredggridview.StaggeredGridView;
  */
 public class StaggeredGridViewAdapter extends BaseAdapter {
 
-	private StaggeredGridView sGridView;
 	private List<IngredientInfo> infos;
 	private Context context;
 	private ImageFetcher mImageFetcher;
@@ -53,7 +51,6 @@ public class StaggeredGridViewAdapter extends BaseAdapter {
 		mImageFetcher.setLoadingImage( R.drawable.empty_photo );
 		this.context = applicationContext;
 		this.infos = infos;
-		this.sGridView = sGridView;
 		this.layoutInflater = LayoutInflater.from( context );
 	}
 

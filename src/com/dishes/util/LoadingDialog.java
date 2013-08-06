@@ -16,10 +16,10 @@
 
 package com.dishes.util;
 
-import com.dishes.ui.R;
-
 import android.app.ProgressDialog;
 import android.content.Context;
+
+import com.dishes.ui.R;
 
 /**
  * 加载数据时显示进度对话框

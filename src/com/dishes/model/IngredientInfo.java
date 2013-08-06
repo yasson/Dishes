@@ -10,7 +10,6 @@ import java.net.URL;
 
 import org.ksoap2.serialization.SoapObject;
 
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 

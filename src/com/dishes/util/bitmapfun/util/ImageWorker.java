@@ -18,7 +18,6 @@ package com.dishes.util.bitmapfun.util;
 
 import java.lang.ref.WeakReference;
 
-import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -30,7 +29,6 @@ import android.graphics.drawable.TransitionDrawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.dishes.ui.BuildConfig;
 

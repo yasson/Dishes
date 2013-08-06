@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import android.text.StaticLayout;
-
 import com.dishes.common.Constant;
 import com.dishes.util.ImageLoader.ImageLoadTask;
 

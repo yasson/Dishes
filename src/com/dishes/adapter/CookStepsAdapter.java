@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.dishes.common.ViewHolder;
 import com.dishes.model.MenuInfo.StepsInfo;
 import com.dishes.ui.R;
-import com.dishes.util.ImageLoader;
 
 /**
  * @author SenYang
@@ -80,8 +79,6 @@ public class CookStepsAdapter extends BaseAdapter {
 		viewHolder.textView1.setText( position+1 + "." );
 		viewHolder.textView2.setText( infos.get( position ).getNote() );
 		viewHolder.imageView.setImageResource( R.drawable.ic_launcher  );
-		ImageLoader imageLoader = new ImageLoader();
-		String imageUrl =infos.get( position ).getSteppic();
 //		if(imageUrl != null ) {
 //			if(infos.get( position ).getSteppic().contains( "http://s3" )  ) {
 //				String url = infos.get( position ).getSteppic();

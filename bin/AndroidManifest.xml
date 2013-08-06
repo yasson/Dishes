@@ -69,6 +69,7 @@
             android:name=".IngredientInterRestrictionDetailUi"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" >
         </activity>
+        <activity android:name=".MyfavouriteDishesUi"></activity>
     </application>
 
 </manifest>

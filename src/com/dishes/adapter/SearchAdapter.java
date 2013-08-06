@@ -3,7 +3,6 @@
  */
 package com.dishes.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;

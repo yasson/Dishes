@@ -85,7 +85,7 @@ public class IngredientEnergyUi extends BaseActivity implements OnClickListener,
 	protected void onResume() {
 
 		super.onResume();
-		if( AppContext.list_ingredient_energy == null ) {
+		if( AppContext.list_ingredient_energy.size()==0 ) {
 			getIngredients();
 		} else if( sGridView.getAdapter() == null ) {
 			infos = AppContext.list_ingredient_energy;

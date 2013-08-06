@@ -30,6 +30,11 @@ import com.dishes.ui.R;
  */
 public class AppExceptions extends Exception implements UncaughtExceptionHandler {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8821946901284487917L;
+
 	private final static boolean Debug = false;// 是否保存错误日志
 
 	/** 定义异常类型 */

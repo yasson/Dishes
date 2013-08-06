@@ -22,10 +22,6 @@ package com.dishes.views.stageredggridview;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.dishes.ui.R;
-
-
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -57,6 +53,8 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.ListAdapter;
+
+import com.dishes.ui.R;
 
 /**
  * ListView and GridView just not complex enough? Try StaggeredGridView!

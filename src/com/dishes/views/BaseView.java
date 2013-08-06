@@ -4,9 +4,6 @@
  */
 package com.dishes.views;
 
-import android.R.bool;
-import android.app.Activity;
-import android.text.GetChars;
 import android.view.View;
 
 /**
