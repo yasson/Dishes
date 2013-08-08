@@ -6,11 +6,14 @@ package com.dishes.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
@@ -26,11 +29,13 @@ import com.dishes.ui.base.BaseActivity;
  * 
  */
 public class MyfavouriteDishesUi extends BaseActivity implements
-		OnClickListener, OnScrollListener {
+		OnClickListener, OnScrollListener, OnItemClickListener {
 	private Button btn_delete;
 	private GridView gv_favor;
 	private MyfavouriteDishesAdapter adapter;
 	private List<DishInfo> infos;
+	private Button btn_cancle;
+	private Dao dao;
 
 	/*
 	 * (non-Javadoc)
@@ -52,9 +57,9 @@ public class MyfavouriteDishesUi extends BaseActivity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Dao dao = new Dao(getApplicationContext());
-		if (AppContext.favorlist != dao.getFavors()) {
+		if (AppContext.favorlist.size() != dao.getFavors().size()) {
 			infos = AppContext.favorlist = dao.getFavors();
+			adapter.setInfos(infos);
 			adapter.notifyDataSetChanged();
 		}
 	}
@@ -65,14 +70,16 @@ public class MyfavouriteDishesUi extends BaseActivity implements
 	private void initView() {
 		btn_delete = (Button) findViewById(R.id.btn_deletefavor);
 		btn_delete.setOnClickListener(this);
+		btn_cancle = (Button) findViewById(R.id.btn_canclefavor);
+		btn_cancle.setOnClickListener(this);
 		gv_favor = (GridView) findViewById(R.id.gv_myfavor);
 		infos = new ArrayList<DishInfo>();
-		Dao dao = new Dao(getApplicationContext());
-		infos = dao.getFavors();
-		AppContext.favorlist = infos;
+		dao = new Dao(getApplicationContext());
+		AppContext.favorlist = infos = dao.getFavors();
 		adapter = new MyfavouriteDishesAdapter(getApplicationContext(), infos);
 		gv_favor.setAdapter(adapter);
 		gv_favor.setOnScrollListener(this);
+		gv_favor.setOnItemClickListener(this);
 	}
 
 	/*
@@ -86,14 +93,28 @@ public class MyfavouriteDishesUi extends BaseActivity implements
 		case R.id.btn_deletefavor:
 			if (adapter.getMODIFY()) {
 				adapter.setMODIFY(false);
+				btn_delete.setText("删除");
+				btn_cancle.setVisibility(View.GONE);
+				for (String id : AppContext.remove_favorlist) {
+					dao.removeFavor(id);
+				}
+
 				for (int i = 0; i < gv_favor.getChildCount(); i++) {
 					MyfavouriteDishesAdapter.ViewHolder viewHolder = (ViewHolder) gv_favor
 							.getChildAt(i).getTag();
 					viewHolder.checkBox.setVisibility(View.GONE);
-
 				}
+				if (AppContext.remove_favorlist.size() == 0) {
+					return;
+				}
+				AppContext.remove_favorlist.clear();
+				AppContext.favorlist = infos = dao.getFavors();
+				adapter.setInfos(infos);
+				adapter.notifyDataSetChanged();
 
 			} else {
+				btn_delete.setText("完成");
+				btn_cancle.setVisibility(View.VISIBLE);
 				adapter.setMODIFY(true);
 				for (int i = 0; i < gv_favor.getChildCount(); i++) {
 					MyfavouriteDishesAdapter.ViewHolder viewHolder = (ViewHolder) gv_favor
@@ -104,6 +125,18 @@ public class MyfavouriteDishesUi extends BaseActivity implements
 
 			}
 
+			break;
+		case R.id.btn_canclefavor:
+			btn_cancle.setVisibility(View.GONE);
+			adapter.setMODIFY(false);
+			AppContext.remove_favorlist.clear();
+			btn_delete.setText("删除");
+			for (int i = 0; i < gv_favor.getChildCount(); i++) {
+				MyfavouriteDishesAdapter.ViewHolder viewHolder = (ViewHolder) gv_favor
+						.getChildAt(i).getTag();
+				viewHolder.checkBox.setVisibility(View.GONE);
+				viewHolder.checkBox.setChecked(false);
+			}
 			break;
 
 		default:
@@ -133,6 +166,7 @@ public class MyfavouriteDishesUi extends BaseActivity implements
 				MyfavouriteDishesAdapter.ViewHolder viewHolder = (ViewHolder) gv_favor
 						.getChildAt(i).getTag();
 				viewHolder.checkBox.setVisibility(View.GONE);
+				viewHolder.checkBox.setChecked(false);
 
 			}
 
@@ -150,4 +184,20 @@ public class MyfavouriteDishesUi extends BaseActivity implements
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget
+	 * .AdapterView, android.view.View, int, long)
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		Intent intent = new Intent(MyfavouriteDishesUi.this, HowToCook.class);
+		intent.putExtra("dishId",
+				((DishInfo) adapter.getItem(position)).getDishId());
+		startActivity(intent);
+		overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
+	}
 }

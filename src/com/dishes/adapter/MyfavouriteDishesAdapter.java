@@ -8,6 +8,7 @@ import java.util.List;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
@@ -16,6 +17,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dishes.AppContext;
 import com.dishes.model.DishInfo;
 import com.dishes.ui.R;
 import com.dishes.util.bitmapfun.util.ImageFetcher;
@@ -38,7 +40,7 @@ public class MyfavouriteDishesAdapter extends BaseAdapter {
 	private Context context;
 	private LayoutInflater layoutInflater;
 	private ImageFetcher imageFetcher;
-	private boolean MODIFY=false;
+	private boolean MODIFY = false;
 
 	/**
 	 * @param applicationContext
@@ -58,6 +60,14 @@ public class MyfavouriteDishesAdapter extends BaseAdapter {
 	 */
 	public void setMODIFY(boolean mODIFY) {
 		MODIFY = mODIFY;
+	}
+
+	/**
+	 * @param infos
+	 *            the infos to set
+	 */
+	public void setInfos(List<DishInfo> infos) {
+		this.infos = infos;
 	}
 
 	/**
@@ -104,7 +114,7 @@ public class MyfavouriteDishesAdapter extends BaseAdapter {
 	 * android.view.ViewGroup)
 	 */
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHolder viewHolder;
 		if (convertView == null) {
 			convertView = layoutInflater.inflate(
@@ -118,18 +128,30 @@ public class MyfavouriteDishesAdapter extends BaseAdapter {
 			convertView.setTag(viewHolder);
 		}
 		viewHolder = (ViewHolder) convertView.getTag();
+		viewHolder.checkBox.setChecked(false);
+		if (AppContext.remove_favorlist.contains(infos.get(position)
+				.getDishId())) {
+			viewHolder.checkBox.setChecked(true);
+		}
+		System.out.println(AppContext.remove_favorlist + "==========");
 		viewHolder.textView.setText(infos.get(position).getDishName());
 		imageFetcher.loadImage(infos.get(position).getDishPic(),
 				viewHolder.imageView);
+		viewHolder.checkBox.setOnClickListener(new OnClickListener() {
 
-		viewHolder.checkBox
-				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onClick(View v) {
+				if (AppContext.remove_favorlist.contains(infos.get(position)
+						.getDishId())) {
+					AppContext.remove_favorlist.remove(infos.get(position)
+							.getDishId());
+				} else {
+					AppContext.remove_favorlist.add(infos.get(position)
+							.getDishId());
 
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-					}
-				});
+				}
+			}
+		});
 		return convertView;
 	}
 

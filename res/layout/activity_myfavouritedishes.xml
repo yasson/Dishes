@@ -8,7 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@android:color/holo_green_light" >
-
+  <Button
+            android:id="@+id/btn_canclefavor"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btnpress"
+            android:visibility="gone"
+            android:text="@string/cancle"
+            android:textColor="#ffffff" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

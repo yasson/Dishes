@@ -9,10 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.R.string;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.text.StaticLayout;
 
 import com.dishes.model.DishInfo;
 import com.dishes.model.IngredientInfo;
@@ -33,8 +35,18 @@ public class AppContext extends Application {
 	public static int i=0;
 	public static List<IngredientInfo> list_ingredient_Ids = new ArrayList<IngredientInfo>();
 	public static boolean IF_LOAD=true;
+	/**
+	 * 食材信息
+	 */
 	public static List<IngredientInfo> list_ingredient_energy=new ArrayList<IngredientInfo>();
+	/**
+	 * 收藏信息
+	 */
 	public static List<DishInfo> favorlist=new ArrayList<DishInfo>();
+	/**
+	 * 要移除的收藏
+	 */
+	public static List<String> remove_favorlist=new ArrayList<String>();
 
 
 	public AppContext( Context context ) {
