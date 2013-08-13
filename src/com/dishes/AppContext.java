@@ -9,12 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.R.string;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.text.StaticLayout;
 
 import com.dishes.model.DishInfo;
 import com.dishes.model.IngredientInfo;

@@ -16,7 +16,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -61,15 +61,16 @@
             android:name=".IngredientEnergyDetailUi"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" >
         </activity>
-           <activity
+        <activity
             android:name=".IngredientInterRestrictionUi"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" >
         </activity>
-              <activity
+        <activity
             android:name=".IngredientInterRestrictionDetailUi"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" >
         </activity>
-        <activity android:name=".MyfavouriteDishesUi"></activity>
+        <activity android:name=".MyfavouriteDishesUi" >
+        </activity>
     </application>
 
 </manifest>

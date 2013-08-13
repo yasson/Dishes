@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dishes.common.Constant;
 import com.dishes.common.ViewHolder;
@@ -28,43 +29,45 @@ import com.dishes.ui.base.BaseActivity;
  * @author SenYang
  * 
  */
-public class CategoryDishesUi extends BaseActivity implements OnItemClickListener {
+public class CategoryDishesUi extends BaseActivity implements
+		OnItemClickListener {
 
 	private ListView lv_categorydishes;
 
-
 	@Override
-	protected void onCreate( Bundle savedInstanceState ) {
+	protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate( savedInstanceState );
-		setContentView( R.layout.activity_categorydishes );
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_categorydishes);
 		initView();
 	}
-
 
 	/**
 	 * 
 	 */
 	private void initView() {
 
-		lv_categorydishes = ( ListView )findViewById( R.id.lv_categorydishes );
-		lv_categorydishes.setOnItemClickListener( this );
-		lv_categorydishes.setAdapter( new Adapter() );
+		lv_categorydishes = (ListView) findViewById(R.id.lv_categorydishes);
+		lv_categorydishes.setOnItemClickListener(this);
+		lv_categorydishes.setAdapter(new Adapter());
 
 	}
-
 
 	@Override
-	public void onItemClick( AdapterView<?> arg0, View arg1, int arg2, long arg3 ) {
-
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		if (arg2 > 3) {
+			Toast.makeText(getApplicationContext(), "功能待开发", Toast.LENGTH_SHORT)
+					.show();
+			return;
+		}
 		Intent intent = new Intent();
-		intent.putExtra( "categoryType", arg2 );
-		intent.setClass( getApplicationContext(), CategoryDetailUi.class );
-		startActivity( intent );
-		overridePendingTransition( R.anim.slide_right_in, R.anim.slide_out_donothing );
+		intent.putExtra("categoryType", arg2);
+		intent.setClass(getApplicationContext(), CategoryDetailUi.class);
+		startActivity(intent);
+		overridePendingTransition(R.anim.slide_right_in,
+				R.anim.slide_out_donothing);
 
 	}
-
 
 	public class Adapter extends BaseAdapter {
 
@@ -74,56 +77,62 @@ public class CategoryDishesUi extends BaseActivity implements OnItemClickListene
 			return Constant.CategoryDishesConstant.CATEGORY_LIST.length;
 		}
 
-
 		@Override
-		public Object getItem( int position ) {
+		public Object getItem(int position) {
 
-			return Constant.CategoryDishesConstant.CATEGORY_LIST[ position ];
+			return Constant.CategoryDishesConstant.CATEGORY_LIST[position];
 		}
 
-
 		@Override
-		public long getItemId( int position ) {
+		public long getItemId(int position) {
 
 			return position;
 		}
 
-
 		@Override
-		public View getView( int position, View convertView, ViewGroup parent ) {
+		public View getView(int position, View convertView, ViewGroup parent) {
 
 			ViewHolder viewHolder = null;
-			if( convertView == null ) {
+			if (convertView == null) {
 				viewHolder = new ViewHolder();
-				convertView = LayoutInflater.from( getApplicationContext() ).inflate( R.layout.adapter_categorylistview, null );
-				viewHolder.imageView = ( ImageView )convertView.findViewById( R.id.iv_categorylist );
-				viewHolder.textView1 = ( TextView )convertView.findViewById( R.id.tv_categoryf );
-				viewHolder.textView2 = ( TextView )convertView.findViewById( R.id.tv_categoryd );
-				convertView.setTag( viewHolder );
+				convertView = LayoutInflater.from(getApplicationContext())
+						.inflate(R.layout.adapter_categorylistview, null);
+				viewHolder.imageView = (ImageView) convertView
+						.findViewById(R.id.iv_categorylist);
+				viewHolder.textView1 = (TextView) convertView
+						.findViewById(R.id.tv_categoryf);
+				viewHolder.textView2 = (TextView) convertView
+						.findViewById(R.id.tv_categoryd);
+				convertView.setTag(viewHolder);
 			} else {
-				viewHolder = ( ViewHolder )convertView.getTag();
+				viewHolder = (ViewHolder) convertView.getTag();
 			}
 			try {
-				viewHolder.imageView.setImageBitmap( BitmapFactory.decodeStream( ( getResources().getAssets()
-						.open( Constant.CategoryDishesConstant.IMAGE_LIST[ position ] ) ) ) );
-			} catch( IOException e ) {
+				viewHolder.imageView
+						.setImageBitmap(BitmapFactory.decodeStream((getResources()
+								.getAssets()
+								.open(Constant.CategoryDishesConstant.IMAGE_LIST[position]))));
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			viewHolder.textView1.setText( Constant.CategoryDishesConstant.CATEGORY_LIST[ position ].toString() );
-			viewHolder.textView2.setText( Constant.CategoryDishesConstant.DESCRIBTION_LIST[ position ].toString() );
+			viewHolder.textView1
+					.setText(Constant.CategoryDishesConstant.CATEGORY_LIST[position]
+							.toString());
+			viewHolder.textView2
+					.setText(Constant.CategoryDishesConstant.DESCRIBTION_LIST[position]
+							.toString());
 
 			return convertView;
 		}
 
 	}
 
-
 	@Override
 	public void onBackPressed() {
 
 		super.onBackPressed();
 
-		overridePendingTransition( R.anim.slide_in, R.anim.slide_out );
+		overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 	}
 }

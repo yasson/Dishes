@@ -99,8 +99,8 @@ public class ImageLoader {
 		}
 		int width = options.outWidth;
 		int height = options.outHeight;
-		float ratio = width / length;
-		if( width < length ) {
+		float ratio = width / 800;
+		if( width < 800 ) {
 			ratio = 1;
 		}
 		options.inSampleSize = ( int )ratio;
