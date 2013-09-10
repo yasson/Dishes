@@ -67,13 +67,14 @@ public class Dao {
 		SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
 		List<DishInfo> infos = new ArrayList<DishInfo>();
 		Cursor cursor = db.query(TB_NAME, null, null, null, null, null, null);
-//		Cursor cursor=db.rawQuery(sql, selectionArgs)
+		// Cursor cursor=db.rawQuery(sql, selectionArgs)
 		if (cursor.moveToFirst()) {
-			while (cursor.moveToNext()) {
+			do {
+
 				DishInfo dishInfo = new DishInfo(cursor.getString(0),
 						cursor.getString(1), cursor.getString(2), null);
 				infos.add(dishInfo);
-			}
+			} while (cursor.moveToNext());
 
 		}
 		return infos;

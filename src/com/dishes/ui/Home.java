@@ -31,6 +31,7 @@ public class Home extends BaseActivity implements OnIntent {
 	protected void onCreate( Bundle savedInstanceState ) {
 
 		super.onCreate( savedInstanceState );
+		
 		home=new Home();
 		homeMenuView = new HomeMenuView( getApplicationContext() );
 		slidingMenuView = new SlidingMenuView( this, homeMenuView );

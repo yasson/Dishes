@@ -33,6 +33,7 @@ public class AppContext extends Application {
 	public static int i=0;
 	public static List<IngredientInfo> list_ingredient_Ids = new ArrayList<IngredientInfo>();
 	public static boolean IF_LOAD=true;
+	public static String AUTHORITY;
 	/**
 	 * 食材信息
 	 */
@@ -47,9 +48,6 @@ public class AppContext extends Application {
 	public static List<String> remove_favorlist=new ArrayList<String>();
 
 
-	public AppContext( Context context ) {
-
-	}
 
 
 	@Override
@@ -65,6 +63,7 @@ public class AppContext extends Application {
 	 * 
 	 */
 	private static void init() {
+		
 
 	}
 

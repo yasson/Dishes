@@ -16,8 +16,13 @@
 
 package com.dishes.util;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.dishes.ui.R;
 
@@ -27,27 +32,22 @@ import com.dishes.ui.R;
  * @author yangsen
  * @create 2012-12-25 上午11:00:09
  */
-public class LoadingDialog {
-	private static ProgressDialog progressDialog;
-
-	public void showDlg(Context context) {
-		progressDialog = new ProgressDialog(context,R.style.dialog);
-		// 设置进度条风格，风格为圆形，旋转的
-		progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		// 设置ProgressDialog 提示信息
-//		progressDialog.setMessage("loading...");
-		// 设置ProgressDialog 的进度条是否不明确
-		progressDialog.setIndeterminate(false);
-		// 设置是否可以取消
-		progressDialog.setCancelable(false);
-		progressDialog.show();
-
+public class LoadingDialog extends Dialog {
+	private ImageView mImageView;
+	private Animation mAnimation;
+	private Context mContext;
+	public LoadingDialog(Context context, int theme) {
+		super(context, theme);
+		mContext=context;
 	}
-
-	public void cancleDlg() {
-
-		if (null != progressDialog && progressDialog.isShowing()) {
-			progressDialog.dismiss();
-		}
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		mImageView=new ImageView(mContext);
+		mImageView.setImageResource(R.drawable.ram_loading_fg);
+		mImageView.setBackgroundResource(R.drawable.ram_loading_bg);
+		setContentView(mImageView);
+		mAnimation=AnimationUtils.loadAnimation(mContext, R.anim.rotate);
+		mImageView.setAnimation(mAnimation);
+		mAnimation.startNow();
 	}
 }

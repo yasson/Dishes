@@ -13,6 +13,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 	public static final String DISHNAME = "dishname";
 	public static final String DISHPIC = "dishpic";
 
+	
+	
 	public DataBaseHelper(Context context, String name, CursorFactory factory,
 			int version) {
 		super(context, name, factory, version);

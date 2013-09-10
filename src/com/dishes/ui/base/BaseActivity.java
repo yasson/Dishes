@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import com.dishes.AppManager;
 import com.dishes.ui.R;
+import com.dishes.util.LoadingDialog;
 import com.dishes.util.ThreadTool;
 
 /**
@@ -25,6 +26,7 @@ public class BaseActivity extends Activity {
 
 		super.onCreate( savedInstanceState );
 		AppManager.getAppManager().addActivity( this );
+
 	}
 
 

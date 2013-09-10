@@ -25,69 +25,67 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:singleLine="true"
             android:layout_marginLeft="20dp"
             android:layout_toLeftOf="@id/btn_searching"
             android:hint="@string/inputsearch"
             android:imeOptions="actionSearch"
+            android:singleLine="true"
             android:textSize="13sp" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:background="#000000" >
+        android:background="#000000"
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/btn_taste"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
+            android:layout_weight="3"
             android:background="#ffffff"
             android:text="@string/taste"
             android:textColor="#A52A2A"
             android:textSize="16sp" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/menuback" />
+
         <Button
             android:id="@+id/btn_caixi"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/btn_taste"
+            android:layout_weight="3"
             android:background="#ffffff"
             android:text="@string/caixi"
             android:textColor="#A52A2A"
             android:textSize="16sp" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/menuback" />
+
         <Button
             android:id="@+id/btn_process"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/btn_taste"
+            android:layout_weight="3"
             android:background="#ffffff"
             android:text="@string/process"
             android:textColor="#A52A2A"
             android:textSize="16sp" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_toLeftOf="@id/btn_taste"
-            android:background="@drawable/menuback" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@id/btn_taste"
-            android:background="@drawable/menuback" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lv_searchresult"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000" >
     </ListView>
 
 </LinearLayout>

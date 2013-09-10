@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name="com.dishes.AppContext"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
@@ -38,6 +39,11 @@
         <activity android:name=".LoginUi" >
         </activity>
         <activity android:name=".EachdayMealsUi" >
+                <intent-filter>
+                <action android:name="android.intent.action.Login" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity android:name=".HowToCook" >
         </activity>
@@ -71,6 +77,11 @@
         </activity>
         <activity android:name=".MyfavouriteDishesUi" >
         </activity>
+
+        <provider
+            android:name="com.dishes.provider.DishesProvider"
+            android:authorities="com.dishes" >
+        </provider>
     </application>
 
 </manifest>
